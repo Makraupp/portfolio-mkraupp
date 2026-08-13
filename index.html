@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfólio — MKraupp</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #000000;
+    --surface:   #111111;
+    --surface2:  #1A1A1A;
+    --border:    #2A2A2A;
+    --text:      #F5F5F7;
+    --muted:     #86868B;
+    --accent:    #C9A96E;
+    --accent2:   #8B6F3E;
+    --page-w:    1100px;
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  img { display: block; max-width: 100%; }
+
+  /* ---- TOPBAR ---- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar-inner {
+    max-width: var(--page-w); margin: 0 auto; padding: 14px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topnav { display: flex; gap: 26px; }
+  .topnav a {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color .2s;
+  }
+  .topnav a:hover { color: var(--accent); }
+
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo-mark {
+    width: 34px; height: 34px; border: 1.5px solid #F5F5F7; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 500; letter-spacing: -0.5px; flex-shrink: 0;
+  }
+  .logo-name {
+    font-size: 15px; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: #F5F5F7;
+  }
+
+  /* ---- COVER ---- */
+  .cover {
+    min-height: 92vh; display: flex; flex-direction: column; justify-content: space-between;
+    padding: 72px 48px 64px; max-width: var(--page-w); margin: 0 auto;
+  }
+  .cover-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 12px; }
+  .cover-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 22px;
+  }
+  .cover-title {
+    font-size: clamp(46px, 7vw, 84px); font-weight: 700; line-height: 1.02;
+    letter-spacing: -2px; color: var(--text); margin-bottom: 22px;
+  }
+  .cover-sub { font-size: 19px; font-weight: 300; color: var(--muted); max-width: 580px; }
+  .cover-rule { width: 100%; height: 1px; background: var(--border); margin: 44px 0 28px; }
+  .cover-meta-line { font-size: 14px; color: var(--muted); }
+  .cover-meta-line strong { color: var(--text); font-weight: 500; }
+
+  /* ---- MANIFESTO ---- */
+  .manifesto { padding: 88px 48px; max-width: var(--page-w); margin: 0 auto; border-top: 1px solid var(--border); }
+  .manifesto h2 {
+    font-size: clamp(26px, 3.4vw, 40px); font-weight: 700; letter-spacing: -0.8px;
+    line-height: 1.2; color: var(--text); max-width: 880px; margin-bottom: 28px;
+  }
+  .manifesto h2 span { color: var(--muted); }
+  .manifesto p { color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 680px; }
+
+  .cap-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+  .cap-card { background: var(--surface); padding: 30px 28px; }
+  .cap-card:first-child { border-radius: 12px 0 0 12px; }
+  .cap-card:last-child { border-radius: 0 12px 12px 0; }
+  .cap-icon { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .cap-card h4 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .cap-card p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 28px;
+  }
+
+  /* ---- CASE ---- */
+  .case { padding: 96px 48px; max-width: var(--page-w); margin: 0 auto; border-top: 1px solid var(--border); }
+  .case.flagship { background: linear-gradient(180deg, rgba(201,169,110,0.05), transparent 340px); }
+  .case-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+  .case-index { font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 1px; }
+  .case-cat { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); }
+  .flag-badge { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #000; background: var(--accent); padding: 4px 10px; border-radius: 999px; font-weight: 700; }
+  .case h2 { font-size: clamp(30px, 4vw, 48px); font-weight: 700; letter-spacing: -1px; line-height: 1.08; color: var(--text); margin-bottom: 18px; }
+  .case-lead { font-size: 17px; color: var(--muted); line-height: 1.7; max-width: 660px; margin-bottom: 40px; }
+  .case-lead strong { color: var(--text); font-weight: 500; }
+
+  .hero-img { width: 100%; border-radius: 14px; overflow: hidden; background: var(--surface); }
+  .hero-img img { width: 100%; height: auto; }
+
+  /* gallery */
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 40px; }
+  .gallery figure { border-radius: 12px; overflow: hidden; background: var(--surface); aspect-ratio: 4/3; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .gallery figure:hover img { transform: scale(1.04); }
+  .gallery .wide { grid-column: span 2; aspect-ratio: 16/9; }
+
+  /* video card */
+  .video-card { position: relative; margin-top: 40px; border-radius: 14px; overflow: hidden; background: var(--surface); aspect-ratio: 16/9; }
+  .video-card img { width: 100%; height: 100%; object-fit: cover; opacity: .78; }
+  .video-overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+    background: linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.55)); text-align: center; padding: 24px;
+  }
+  .play-btn {
+    width: 68px; height: 68px; border-radius: 50%; border: 1.5px solid var(--accent);
+    background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px);
+  }
+  .play-btn::after { content: ''; border-style: solid; border-width: 11px 0 11px 18px; border-color: transparent transparent transparent var(--accent); margin-left: 4px; }
+  .video-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 500; }
+  .video-note { font-size: 12px; color: var(--muted); }
+
+  .case-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+  .chip { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 7px 16px; }
+  .chip strong { color: var(--text); font-weight: 500; }
+
+  /* ---- SELO 3D (render dentro da foto realista) ---- */
+  .paired { position: relative; cursor: zoom-in; }
+  .badge3d {
+    position: absolute; right: 12px; bottom: 12px; z-index: 3;
+    width: 92px; height: 62px; padding: 0; border-radius: 8px; overflow: hidden;
+    border: 1.5px solid rgba(245,245,247,0.85); background: #000; cursor: zoom-in;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5); transition: transform .2s, border-color .2s;
+  }
+  .hero-img .badge3d { width: 128px; height: 84px; right: 16px; bottom: 16px; }
+  .badge3d:hover { transform: scale(1.06); border-color: var(--accent); }
+  .badge3d img { width: 100%; height: 100%; object-fit: cover; opacity: .95; }
+  .badge3d-tag {
+    position: absolute; left: 0; top: 0; z-index: 2;
+    font-size: 8px; font-weight: 700; letter-spacing: 1.5px; color: #000;
+    background: var(--accent); padding: 2px 6px; border-radius: 0 0 6px 0;
+  }
+  .badge3d-zoom {
+    position: absolute; right: 4px; bottom: 4px; width: 16px; height: 16px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.6); border-radius: 50%; color: var(--accent); font-size: 11px; line-height: 1;
+  }
+
+  /* ---- LIGHTBOX COMPARADOR ---- */
+  .lb { position: fixed; inset: 0; z-index: 200; display: none; background: rgba(0,0,0,0.94);
+        align-items: center; justify-content: center; flex-direction: column; gap: 18px; padding: 40px 20px; }
+  .lb.open { display: flex; }
+  .lb-scene { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .lb-close { position: absolute; top: 20px; right: 24px; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--border); color: var(--text); font-size: 22px; cursor: pointer; line-height: 1; }
+  .lb-close:hover { border-color: var(--accent); color: var(--accent); }
+  .lb-compare { position: relative; width: min(1100px, 94vw); aspect-ratio: 16/10; max-height: 76vh;
+    border-radius: 12px; overflow: hidden; background: #111; user-select: none; touch-action: none; }
+  .lb-compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .lb-render { z-index: 1; }        /* topo, recortado à esquerda */
+  .lb-real   { z-index: 0; }        /* base, visível à direita */
+  .lb-tag { position: absolute; top: 14px; z-index: 4; font-size: 10px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(8px); pointer-events: none; }
+  .lb-tag.left  { left: 14px;  background: rgba(0,0,0,0.6); color: var(--muted); border: 1px solid var(--border); }
+  .lb-tag.right { right: 14px; background: rgba(201,169,110,0.16); color: var(--accent); border: 1px solid var(--accent2); }
+  .lb-handle { position: absolute; top: 0; bottom: 0; z-index: 5; width: 2px; background: var(--accent);
+    transform: translateX(-1px); pointer-events: none; }
+  .lb-grip { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 40px; height: 40px;
+    border-radius: 50%; background: var(--accent); color: #000; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; box-shadow: 0 4px 16px rgba(0,0,0,0.6); }
+  .lb-hint { font-size: 12px; color: var(--muted); letter-spacing: .3px; }
+
+  /* ---- OUTROS ---- */
+  .outros { padding: 96px 48px; max-width: var(--page-w); margin: 0 auto; border-top: 1px solid var(--border); }
+  .outros h2 { font-size: clamp(28px, 3.6vw, 40px); font-weight: 700; letter-spacing: -0.8px; color: var(--text); margin-bottom: 16px; }
+  .outros > p { font-size: 16px; color: var(--muted); max-width: 640px; line-height: 1.7; }
+  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 44px; }
+  .proj-card { position: relative; border-radius: 14px; overflow: hidden; background: var(--surface); aspect-ratio: 16/10; }
+  .proj-card img { width: 100%; height: 100%; object-fit: cover; opacity: .7; transition: opacity .4s, transform .5s; }
+  .proj-card:hover img { opacity: .85; transform: scale(1.03); }
+  .proj-info { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75)); }
+  .proj-cat { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
+  .proj-card h3 { font-size: 22px; font-weight: 600; color: var(--text); letter-spacing: -0.4px; margin-bottom: 4px; }
+  .proj-card p { font-size: 13px; color: var(--muted); }
+  .todo { outline: 1px dashed var(--accent2); outline-offset: -1px; }
+
+  /* ---- CTA ---- */
+  .cta { padding: 104px 48px; max-width: var(--page-w); margin: 0 auto; border-top: 1px solid var(--border); text-align: center; }
+  .cta h2 { font-size: clamp(32px, 5vw, 58px); font-weight: 700; letter-spacing: -1.4px; line-height: 1.05; color: var(--text); margin-bottom: 22px; }
+  .cta p { font-size: 17px; color: var(--muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.7; }
+  .cta-btn {
+    display: inline-block; background: var(--accent); color: #000; font-weight: 600;
+    font-size: 15px; letter-spacing: .3px; padding: 16px 36px; border-radius: 999px;
+    text-decoration: none; transition: transform .2s, box-shadow .2s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,169,110,.25); }
+
+  /* ---- SIGNATURE ---- */
+  .signature {
+    padding: 56px 48px 80px; max-width: var(--page-w); margin: 0 auto;
+    border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .sig-left h3 { font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px; }
+  .sig-left p { font-size: 13px; color: var(--muted); margin-bottom: 2px; }
+  .sig-logo { display: flex; align-items: center; gap: 10px; opacity: 0.4; }
+  .sig-logo .logo-mark { width: 28px; height: 28px; font-size: 13px; }
+  .sig-logo .logo-name { font-size: 12px; letter-spacing: 4px; }
+
+  /* ---- MOBILE ---- */
+  @media (max-width: 720px) {
+    .topnav { display: none; }
+    .topbar-inner, .cover { padding-left: 24px; padding-right: 24px; }
+    .cover { padding-top: 48px; padding-bottom: 48px; min-height: 90svh; }
+    .manifesto, .case, .outros, .cta, .signature { padding-left: 24px; padding-right: 24px; }
+    .manifesto, .case, .outros { padding-top: 64px; padding-bottom: 64px; }
+    .cap-row { grid-template-columns: 1fr; }
+    .cap-card:first-child { border-radius: 12px 12px 0 0; }
+    .cap-card:last-child { border-radius: 0 0 12px 12px; }
+    .gallery { grid-template-columns: 1fr 1fr; }
+    .gallery .wide { grid-column: span 2; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .signature { flex-direction: column; gap: 28px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== TOPBAR ==================== -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <div class="logo-mark">M</div>
+      <span class="logo-name">Kraupp</span>
+    </div>
+    <nav class="topnav">
+      <a href="#mediterraneo">Mediterrâneo</a>
+      <a href="#mello">Mello</a>
+      <a href="#vista">Vista</a>
+      <a href="#arbor">Arbor</a>
+      <a href="#horizon">Horizon</a>
+      <a href="#outros">Outros</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ==================== CAPA ==================== -->
+<div class="cover">
+  <div></div>
+  <div class="cover-body">
+    <div class="cover-label">Portfólio · Arquitetura em Imagem</div>
+    <h1 class="cover-title">Projetos que<br>já parecem<br>construídos.</h1>
+    <p class="cover-sub">Renders 3D, fotografia e filme de arquitetura para imóveis de alto padrão. Cada projeto vira uma imagem que vende o desejo antes da obra existir.</p>
+    <div class="cover-rule"></div>
+    <div class="cover-meta-line"><strong>Matheus Kraupp</strong> · Direção de imagem e pós-produção · 2026</div>
+  </div>
+</div>
+
+<!-- ==================== MANIFESTO ==================== -->
+<div class="manifesto">
+  <div class="section-label">O que eu faço</div>
+  <h2>Transformo o projeto de arquitetura na imagem que o cliente compra. <span>Do render técnico à fotografia que ninguém acredita ser gerada.</span></h2>
+  <p>Um render bom mostra o espaço. Uma imagem excelente faz a pessoa querer morar ali. Trabalho essa distância: pego o material do arquiteto, seja render 3D ou fotografia de obra, e entrego uma peça fotorrealista, com luz, textura e atmosfera de revista. Quando o projeto pede movimento, viro filme.</p>
+
+  <div class="cap-row">
+    <div class="cap-card"><div class="cap-icon">01</div><h4>Render 3D em foto real</h4><p>Elimino a cara de maquete. A imagem final passa por qualquer teste de realismo.</p></div>
+    <div class="cap-card"><div class="cap-icon">02</div><h4>Imagem renderizada</h4><p>Ambientes internos e externos com direção de arte, luz e composição de alto padrão.</p></div>
+    <div class="cap-card"><div class="cap-icon">03</div><h4>Filme de arquitetura</h4><p>Vídeo que percorre o projeto com ritmo e emoção. O imóvel em movimento.</p></div>
+  </div>
+</div>
+
+<!-- ==================== CASE 01 · RESERVA DO MEDITERRÂNEO (FLAGSHIP) ==================== -->
+<section class="case flagship" id="mediterraneo">
+  <div class="case-head">
+    <span class="case-index">01</span>
+    <span class="case-cat">Residencial · Alto Padrão</span>
+    <span class="flag-badge">Projeto Destaque</span>
+  </div>
+  <h2>Reserva do Mediterrâneo</h2>
+  <p class="case-lead">O projeto completo, do pôr do sol na piscina de borda infinita ao último detalhe da suíte. Fachada, áreas sociais, cozinha, suítes e pátios internos tratados como <strong>ensaio fotográfico de uma casa que ainda vai ser construída</strong>. Este é o padrão de imagem que entrego.</p>
+
+  <div class="hero-img">
+    <img src="assets/mediterraneo/01-hero-piscina-porsol.jpg" alt="Piscina de borda infinita ao pôr do sol" loading="lazy">
+  </div>
+
+  <div class="gallery">
+    <figure class="wide paired" data-render="assets/pairs/mediterraneo/02-render.jpg" data-real="assets/mediterraneo/02-fachada-golden.jpg" data-scene="Fachada">
+      <img src="assets/mediterraneo/02-fachada-golden.jpg" alt="Fachada ao entardecer" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/02-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/mediterraneo/05-aerea.jpg" alt="Vista aérea" loading="lazy"></figure>
+    <figure class="paired" data-render="assets/pairs/mediterraneo/03-render.jpg" data-real="assets/mediterraneo/03-deck-piscina.jpg" data-scene="Deck e piscina">
+      <img src="assets/mediterraneo/03-deck-piscina.jpg" alt="Deck e piscina" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/03-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/mediterraneo/04-lounge-firepit.jpg" alt="Lounge externo com fire pit" loading="lazy"></figure>
+    <figure class="wide paired" data-render="assets/pairs/mediterraneo/06-render.jpg" data-real="assets/mediterraneo/06-living-lareira.jpg" data-scene="Living com lareira">
+      <img src="assets/mediterraneo/06-living-lareira.jpg" alt="Living com lareira" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/06-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/mediterraneo/07-estar-integrado.jpg" alt="Estar integrado ao deck" loading="lazy"></figure>
+    <figure><img src="assets/mediterraneo/08-area-piscina-coberta.jpg" alt="Área de piscina coberta" loading="lazy"></figure>
+    <figure><img src="assets/mediterraneo/09-deck-lounge-golden.jpg" alt="Deck lounge golden hour" loading="lazy"></figure>
+    <figure class="paired" data-render="assets/pairs/mediterraneo/10-render.jpg" data-real="assets/mediterraneo/10-cozinha-ilha.jpg" data-scene="Cozinha com ilha">
+      <img src="assets/mediterraneo/10-cozinha-ilha.jpg" alt="Cozinha com ilha" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/10-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/mediterraneo/11-cozinha-integrada.jpg" alt="Cozinha integrada ao estar" loading="lazy"></figure>
+    <figure><img src="assets/mediterraneo/12-suite-master.jpg" alt="Suíte master" loading="lazy"></figure>
+    <figure class="wide"><img src="assets/mediterraneo/13-banheira-externa.jpg" alt="Banheira externa com vegetação" loading="lazy"></figure>
+    <figure><img src="assets/mediterraneo/14-bancada-dupla.jpg" alt="Banheiro com bancada dupla" loading="lazy"></figure>
+    <figure class="paired" data-render="assets/pairs/mediterraneo/16-render.jpg" data-real="assets/mediterraneo/16-patio-interno.jpg" data-scene="Pátio interno">
+      <img src="assets/mediterraneo/16-patio-interno.jpg" alt="Pátio interno" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/16-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/mediterraneo/17-suite-deck.jpg" alt="Suíte aberta para o deck" loading="lazy"></figure>
+  </div>
+
+  <div class="video-card">
+    <img src="assets/mediterraneo/05-aerea.jpg" alt="Filme aéreo Reserva do Mediterrâneo" loading="lazy">
+    <div class="video-overlay">
+      <div class="play-btn"></div>
+      <div class="video-label">Filme aéreo do projeto</div>
+      <div class="video-note">Vídeo será incorporado aqui (hospedagem a definir)</div>
+    </div>
+  </div>
+
+  <div class="case-meta">
+    <span class="chip">Fachada e áreas externas</span>
+    <span class="chip">Áreas sociais, cozinha e suítes</span>
+    <span class="chip">Pós fotorrealista</span>
+    <span class="chip">Filme aéreo</span>
+  </div>
+</section>
+
+<!-- ==================== CASE 02 · MELLO ==================== -->
+<section class="case" id="mello">
+  <div class="case-head"><span class="case-index">02</span><span class="case-cat">Residencial · Alto Padrão</span></div>
+  <h2>Residência Mello</h2>
+  <p class="case-lead">Uma casa horizontal em meio à mata, com pedra, madeira e vidro. Cada ambiente tratado para parecer <strong>captado por um fotógrafo de arquitetura em um dia de luz perfeita</strong>. Toque no selo do render em cada imagem para comparar o antes e o depois.</p>
+
+  <div class="hero-img paired" data-render="assets/pairs/mello/01-render.jpg" data-real="assets/pairs/mello/01-real.jpg" data-scene="Fachada e piscina">
+    <img src="assets/pairs/mello/01-real.jpg" alt="Residência Mello — fachada e piscina" loading="lazy">
+    <button class="badge3d" aria-label="Comparar com o render 3D">
+      <span class="badge3d-tag">3D</span>
+      <img src="assets/pairs/mello/01-render.jpg" alt="Render 3D original" loading="eager">
+      <span class="badge3d-zoom">&#9974;</span>
+    </button>
+  </div>
+
+  <div class="gallery">
+    <figure class="paired" data-render="assets/pairs/mello/03-render.jpg" data-real="assets/pairs/mello/03-real.jpg" data-scene="Living com lareira">
+      <img src="assets/pairs/mello/03-real.jpg" alt="Living com lareira" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/03-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure class="paired" data-render="assets/pairs/mello/02-render.jpg" data-real="assets/pairs/mello/02-real.jpg" data-scene="Living e estar">
+      <img src="assets/pairs/mello/02-real.jpg" alt="Living e estar integrado" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/02-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure class="paired" data-render="assets/pairs/mello/04-render.jpg" data-real="assets/pairs/mello/04-real.jpg" data-scene="Sala com painel">
+      <img src="assets/pairs/mello/04-real.jpg" alt="Sala com painel" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/04-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure class="paired" data-render="assets/pairs/mello/05-render.jpg" data-real="assets/pairs/mello/05-real.jpg" data-scene="Escada">
+      <img src="assets/pairs/mello/05-real.jpg" alt="Escada" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/05-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure class="paired" data-render="assets/pairs/mello/06-render.jpg" data-real="assets/pairs/mello/06-real.jpg" data-scene="Suíte e banheiro">
+      <img src="assets/pairs/mello/06-real.jpg" alt="Suíte e banheiro" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/06-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/mello2/03-aerea-piscina.jpg" alt="Vista aérea da piscina" loading="lazy"></figure>
+    <figure><img src="assets/mello2/07-cozinha-ilha.jpg" alt="Cozinha e jantar com ilha" loading="lazy"></figure>
+    <figure><img src="assets/mello2/08-suite.jpg" alt="Suíte" loading="lazy"></figure>
+  </div>
+
+  <div class="video-card">
+    <img src="assets/mello2/01-fachada-piscina.jpg" alt="Filme Residência Mello" loading="lazy">
+    <div class="video-overlay"><div class="play-btn"></div><div class="video-label">Filme do projeto</div><div class="video-note">Vídeo será incorporado aqui (hospedagem a definir)</div></div>
+  </div>
+
+  <div class="case-meta">
+    <span class="chip"><strong>37</strong> imagens internas</span>
+    <span class="chip"><strong>32</strong> imagens externas</span>
+    <span class="chip">Filme de projeto</span>
+  </div>
+</section>
+
+<!-- ==================== CASE 03 · VISTA ==================== -->
+<section class="case" id="vista">
+  <div class="case-head"><span class="case-index">03</span><span class="case-cat">Residencial · Alto Padrão</span></div>
+  <h2>Casa Vista</h2>
+  <p class="case-lead">Arquitetura de teto inclinado e vidro, encaixada no relevo com piscina e vista para a serra. Levei os ambientes ao ponto de <strong>fotografia editorial</strong>, com a casa sempre em diálogo com a paisagem.</p>
+
+  <div class="hero-img paired" data-render="assets/pairs/vista/01-render.jpg" data-real="assets/vista2/01.jpg" data-scene="Implantação no relevo">
+    <img src="assets/vista2/01.jpg" alt="Casa Vista implantada no relevo com piscina" loading="lazy">
+    <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/01-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+  </div>
+
+  <div class="gallery">
+    <figure class="wide"><img src="assets/vista2/05.jpg" alt="Casa Vista — volume de vidro e piscina" loading="lazy"></figure>
+    <figure><img src="assets/vista2/06.jpg" alt="Fachada e jardim" loading="lazy"></figure>
+    <figure class="paired" data-render="assets/pairs/vista/02-render.jpg" data-real="assets/vista2/02.jpg" data-scene="Estar aberto para a piscina">
+      <img src="assets/vista2/02.jpg" alt="Estar aberto para a piscina" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/02-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure class="paired" data-render="assets/pairs/vista/04-render.jpg" data-real="assets/vista2/04.jpg" data-scene="Jantar com vista para a serra">
+      <img src="assets/vista2/04.jpg" alt="Jantar com vista para a serra" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/04-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/vista2/03.jpg" alt="Terraço lounge coberto" loading="lazy"></figure>
+    <figure class="paired" data-render="assets/pairs/vista/07-render.jpg" data-real="assets/vista2/07.jpg" data-scene="Living com vista para a piscina">
+      <img src="assets/vista2/07.jpg" alt="Living com vista para a piscina" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/07-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/vista2/08.jpg" alt="Pátio de entrada" loading="lazy"></figure>
+    <figure><img src="assets/vista2/09.jpg" alt="Suíte com brises e pátio" loading="lazy"></figure>
+  </div>
+
+  <div class="video-card">
+    <img src="assets/vista2/01.jpg" alt="Filme Casa Vista" loading="lazy">
+    <div class="video-overlay"><div class="play-btn"></div><div class="video-label">Filme do projeto</div><div class="video-note">Vídeo será incorporado aqui (hospedagem a definir)</div></div>
+  </div>
+
+  <div class="case-meta"><span class="chip"><strong>51</strong> imagens finais</span><span class="chip">Render em foto real</span><span class="chip">Filme de projeto</span></div>
+</section>
+
+<!-- ==================== CASE 04 · ARBOR ==================== -->
+<section class="case" id="arbor">
+  <div class="case-head"><span class="case-index">04</span><span class="case-cat">Residencial · Alto Padrão</span></div>
+  <h2>Casa Arbor</h2>
+  <p class="case-lead">Da fachada com área gourmet aos ambientes internos, um projeto trabalhado ambiente a ambiente até <strong>cada imagem sustentar sozinha uma peça de venda</strong>.</p>
+
+  <div class="hero-img"><img src="assets/arbor2/00-fachada.jpg" alt="Casa Arbor — fachada e área gourmet" loading="lazy"></div>
+
+  <div class="gallery">
+    <figure class="wide paired" data-render="assets/pairs/arbor/01-render.jpg" data-real="assets/arbor2/01.jpg" data-scene="Circulação envidraçada">
+      <img src="assets/arbor2/01.jpg" alt="Circulação envidraçada para a mata" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/arbor/01-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure><img src="assets/arbor2/00b-fachada.jpg" alt="Fachada" loading="lazy"></figure>
+    <figure><img src="assets/arbor2/02.jpg" alt="Suíte" loading="lazy"></figure>
+    <figure><img src="assets/arbor2/03.jpg" alt="Quarto" loading="lazy"></figure>
+    <figure><img src="assets/arbor2/04.jpg" alt="Quarto com vista" loading="lazy"></figure>
+    <figure class="paired" data-render="assets/pairs/arbor/05-render.jpg" data-real="assets/arbor2/05.jpg" data-scene="Suíte com estar">
+      <img src="assets/arbor2/05.jpg" alt="Suíte com estar" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/arbor/05-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+    <figure class="paired" data-render="assets/pairs/arbor/06-render.jpg" data-real="assets/arbor2/06.jpg" data-scene="Suíte com TV">
+      <img src="assets/arbor2/06.jpg" alt="Suíte com TV" loading="lazy">
+      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/arbor/06-render.jpg" alt="Render 3D" loading="eager"><span class="badge3d-zoom">&#9974;</span></button>
+    </figure>
+  </div>
+
+  <div class="case-meta"><span class="chip"><strong>22</strong> imagens finais</span><span class="chip">Render em foto real</span><span class="chip">Filme de projeto</span></div>
+</section>
+
+<!-- ==================== CASE 05 · HORIZON ==================== -->
+<section class="case" id="horizon">
+  <div class="case-head"><span class="case-index">05</span><span class="case-cat">Residencial · Filme</span></div>
+  <h2>Casa Horizon</h2>
+  <p class="case-lead">Aqui o protagonista é o movimento. Um <strong>filme de arquitetura</strong> que percorre o projeto com ritmo de cinema, luz trabalhada e a atmosfera de um imóvel que a pessoa já quer visitar.</p>
+
+  <div class="video-card">
+    <img src="assets/horizon/poster.jpg" alt="Filme Casa Horizon" loading="lazy">
+    <div class="video-overlay"><div class="play-btn"></div><div class="video-label">Filme completo</div><div class="video-note">Vídeo será incorporado aqui (hospedagem a definir)</div></div>
+  </div>
+
+  <div class="case-meta"><span class="chip">Filme de arquitetura</span><span class="chip">Versão longa + cortes verticais</span></div>
+</section>
+
+<!-- ==================== OUTROS PROJETOS ==================== -->
+<section class="outros" id="outros">
+  <div class="section-label">Além da arquitetura</div>
+  <h2>Outros projetos</h2>
+  <p>Trabalhos que fogem do residencial e mostram o alcance da linguagem: outras escalas, outros contextos, mesma exigência de imagem.</p>
+
+  <div class="proj-grid">
+    <div class="proj-card todo">
+      <img src="assets/outros/tanzania-poster.jpg" alt="Tanzania Project" loading="lazy">
+      <div class="proj-info">
+        <div class="proj-cat">A confirmar · Projeto do chefe?</div>
+        <h3>Tanzania Project</h3>
+        <p>Slot reservado. Confirmar título, contexto e se é este o projeto do chefe.</p>
+      </div>
+    </div>
+    <div class="proj-card todo">
+      <img src="assets/outros/solum-poster.jpg" alt="Casa Solum" loading="lazy">
+      <div class="proj-info">
+        <div class="proj-cat">A confirmar</div>
+        <h3>Casa Solum</h3>
+        <p>Slot reservado. Confirmar se entra nesta seção e com qual descrição.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta" id="contato">
+  <div class="section-label">O próximo projeto pode ser o seu</div>
+  <h2>Quer o seu projeto<br>com essa imagem?</h2>
+  <p>Me manda o material do projeto, seja render, planta ou fotos de obra. Eu devolvo a imagem que faz o cliente querer fechar.</p>
+  <a class="cta-btn" href="https://wa.me/5511976791813" target="_blank" rel="noopener">Falar comigo</a>
+</section>
+
+<!-- ==================== ASSINATURA ==================== -->
+<div class="signature">
+  <div class="sig-left">
+    <h3>Matheus Kraupp</h3>
+    <p>(11) 97679-1813</p>
+    <p>makraupp@gmail.com</p>
+    <p>@matheuskraupp</p>
+  </div>
+  <div class="sig-logo">
+    <div class="logo-mark">M</div>
+    <span class="logo-name">Kraupp</span>
+  </div>
+</div>
+
+<!-- ==================== LIGHTBOX COMPARADOR ==================== -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Comparador render e foto">
+  <button class="lb-close" id="lbClose" aria-label="Fechar">&times;</button>
+  <div class="lb-scene" id="lbScene"></div>
+  <div class="lb-compare" id="lbCompare">
+    <img class="lb-real"   id="lbReal"   alt="Foto real">
+    <img class="lb-render" id="lbRender" alt="Render 3D">
+    <span class="lb-tag left">Render 3D</span>
+    <span class="lb-tag right">Foto real</span>
+    <div class="lb-handle" id="lbHandle"><div class="lb-grip">&#8596;</div></div>
+  </div>
+  <div class="lb-hint">Arraste para comparar · render 3D à esquerda, foto final à direita</div>
+</div>
+
+<script>
+(function () {
+  var lb = document.getElementById('lb');
+  var lbReal = document.getElementById('lbReal');
+  var lbRender = document.getElementById('lbRender');
+  var lbScene = document.getElementById('lbScene');
+  var compare = document.getElementById('lbCompare');
+  var handle = document.getElementById('lbHandle');
+  var pct = 50, dragging = false;
+
+  function setPct(p) {
+    pct = Math.max(0, Math.min(100, p));
+    lbRender.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+    handle.style.left = pct + '%';
+  }
+  function open(render, real, scene) {
+    lbRender.src = render;
+    lbReal.src = real;
+    lbScene.textContent = scene || '';
+    setPct(50);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function moveFromEvent(e) {
+    var rect = compare.getBoundingClientRect();
+    var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    setPct(x / rect.width * 100);
+  }
+
+  document.querySelectorAll('.paired').forEach(function (fig) {
+    fig.addEventListener('click', function () {
+      open(fig.dataset.render, fig.dataset.real, fig.dataset.scene);
+    });
+  });
+
+  document.getElementById('lbClose').addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+
+  compare.addEventListener('pointerdown', function (e) { dragging = true; moveFromEvent(e); });
+  window.addEventListener('pointermove', function (e) { if (dragging) moveFromEvent(e); });
+  window.addEventListener('pointerup', function () { dragging = false; });
+})();
+</script>
+
+</body>
+</html>
