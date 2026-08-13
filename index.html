@@ -156,7 +156,7 @@
 
   /* ---- COMPARADOR INLINE (render vs foto, direto na imagem) ----
      --cmp guarda a posição da alça em %. O render fica por cima, recortado
-     à esquerda dela; a foto real aparece à direita. */
+     à esquerda dela; a imagem otimizada aparece à direita. */
   .paired {
     position: relative; overflow: hidden; cursor: ew-resize;
     touch-action: pan-y;            /* deixa o scroll vertical passar no celular */
@@ -551,13 +551,13 @@
   <button class="lb-close" id="lbClose" aria-label="Fechar">&times;</button>
   <div class="lb-scene" id="lbScene"></div>
   <div class="lb-compare" id="lbCompare">
-    <img class="lb-real"   id="lbReal"   alt="Foto real">
+    <img class="lb-real"   id="lbReal"   alt="Imagem otimizada">
     <img class="lb-render" id="lbRender" alt="Render 3D">
     <span class="lb-tag left">Render 3D</span>
-    <span class="lb-tag right">Foto real</span>
+    <span class="lb-tag right">Otimizada</span>
     <div class="lb-handle" id="lbHandle"><div class="lb-grip">&#8596;</div></div>
   </div>
-  <div class="lb-hint">Arraste para comparar · render 3D à esquerda, foto final à direita</div>
+  <div class="lb-hint">Arraste para comparar · render 3D à esquerda, imagem otimizada à direita</div>
 </div>
 
 <script>
@@ -606,7 +606,7 @@
 
     fig.insertAdjacentHTML('beforeend',
       '<span class="cmp-tag left">Render 3D</span>' +
-      '<span class="cmp-tag right">Foto real</span>' +
+      '<span class="cmp-tag right">Otimizada</span>' +
       '<div class="cmp-handle"><span class="cmp-grip">&#8596;</span></div>' +
       '<button class="cmp-zoom" aria-label="Ampliar comparação">&#9974;</button>');
 
