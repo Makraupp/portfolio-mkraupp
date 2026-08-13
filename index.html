@@ -145,6 +145,10 @@
   .vimeo { position: relative; margin-top: 40px; border-radius: 14px; overflow: hidden; background: var(--surface); aspect-ratio: 16/9; }
   .vimeo iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .vimeo-cap { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+  .vimeo.hero { margin-top: 0; }
+  /* Poster do hero: some assim que o iframe entra, evitando o piscar preto do player. */
+  .vimeo-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: opacity .6s ease; }
+  .vimeo.playing .vimeo-poster { opacity: 0; pointer-events: none; }
 
   .case-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
   .chip { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 7px 16px; }
@@ -305,9 +309,13 @@
   <h2>Reserva do Mediterrâneo</h2>
   <p class="case-lead">O projeto completo, do pôr do sol na piscina de borda infinita ao último detalhe da suíte. Fachada, áreas sociais, cozinha, suítes e pátios internos tratados como <strong>ensaio fotográfico de uma casa que ainda vai ser construída</strong>. Este é o padrão de imagem que entrego.</p>
 
-  <div class="hero-img">
-    <img src="assets/mediterraneo/01-hero-piscina-porsol.jpg" alt="Piscina de borda infinita ao pôr do sol" loading="lazy">
+  <!-- Hero em vídeo: o src só é injetado quando entra em tela, e aí já começa mudo. -->
+  <div class="vimeo hero" data-autoplay
+       data-src="https://player.vimeo.com/video/1180595453?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;autoplay=1&amp;muted=1&amp;loop=1"
+       data-poster="assets/mediterraneo/01-hero-piscina-porsol.jpg">
+    <img class="vimeo-poster" src="assets/mediterraneo/01-hero-piscina-porsol.jpg" alt="Piscina de borda infinita ao pôr do sol">
   </div>
+  <div class="vimeo-cap">Filme conceitual do projeto · toque para ativar o som</div>
 
   <div class="gallery">
     <figure class="wide paired" data-render="assets/pairs/mediterraneo/02-render.jpg" data-real="assets/mediterraneo/02-fachada-golden.jpg" data-scene="Fachada">
@@ -341,14 +349,6 @@
     </figure>
     <figure><img src="assets/mediterraneo/17-suite-deck.jpg" alt="Suíte aberta para o deck" loading="lazy"></figure>
   </div>
-
-  <div class="vimeo">
-    <iframe src="https://player.vimeo.com/video/1180595453?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0"
-            title="Reserva do Mediterrâneo — filme conceitual"
-            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe>
-  </div>
-  <div class="vimeo-cap">Filme conceitual do projeto</div>
 
   <div class="case-meta">
     <span class="chip">Fachada e áreas externas</span>
@@ -613,6 +613,41 @@
   compare.addEventListener('pointerdown', function (e) { dragging = true; moveFromEvent(e); });
   window.addEventListener('pointermove', function (e) { if (dragging) moveFromEvent(e); });
   window.addEventListener('pointerup', function () { dragging = false; });
+})();
+
+/* Hero em vídeo: carrega e toca quando entra em tela, pausa quando sai.
+   Autoplay só é permitido pelo navegador com o vídeo mudo, por isso muted=1 no data-src.
+   O pause usa postMessage direto no player do Vimeo, sem precisar carregar o player.js. */
+(function () {
+  var alvos = document.querySelectorAll('.vimeo[data-autoplay]');
+  if (!alvos.length || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var obs = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      var box = e.target;
+      var frame = box.querySelector('iframe');
+
+      if (e.isIntersecting) {
+        if (!frame) {
+          frame = document.createElement('iframe');
+          frame.src = box.dataset.src;
+          frame.title = 'Filme do projeto';
+          frame.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share';
+          frame.referrerPolicy = 'strict-origin-when-cross-origin';
+          frame.allowFullscreen = true;
+          frame.addEventListener('load', function () { box.classList.add('playing'); });
+          box.appendChild(frame);
+        } else {
+          frame.contentWindow.postMessage('{"method":"play"}', '*');
+        }
+      } else if (frame) {
+        frame.contentWindow.postMessage('{"method":"pause"}', '*');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  alvos.forEach(function (a) { obs.observe(a); });
 })();
 </script>
 
