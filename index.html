@@ -154,27 +154,47 @@
   .chip { font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 7px 16px; }
   .chip strong { color: var(--text); font-weight: 500; }
 
-  /* ---- SELO 3D (render dentro da foto realista) ---- */
-  .paired { position: relative; cursor: zoom-in; }
-  .badge3d {
-    position: absolute; right: 12px; bottom: 12px; z-index: 3;
-    width: 92px; height: 62px; padding: 0; border-radius: 8px; overflow: hidden;
-    border: 1.5px solid rgba(245,245,247,0.85); background: #000; cursor: zoom-in;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.5); transition: transform .2s, border-color .2s;
+  /* ---- COMPARADOR INLINE (render vs foto, direto na imagem) ----
+     --cmp guarda a posição da alça em %. O render fica por cima, recortado
+     à esquerda dela; a foto real aparece à direita. */
+  .paired {
+    position: relative; overflow: hidden; cursor: ew-resize;
+    touch-action: pan-y;            /* deixa o scroll vertical passar no celular */
+    -webkit-user-select: none; user-select: none;
   }
-  .hero-img .badge3d { width: 128px; height: 84px; right: 16px; bottom: 16px; }
-  .badge3d:hover { transform: scale(1.06); border-color: var(--accent); }
-  .badge3d img { width: 100%; height: 100%; object-fit: cover; opacity: .95; }
-  .badge3d-tag {
-    position: absolute; left: 0; top: 0; z-index: 2;
-    font-size: 8px; font-weight: 700; letter-spacing: 1.5px; color: #000;
-    background: var(--accent); padding: 2px 6px; border-radius: 0 0 6px 0;
+  .cmp-render {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
+    clip-path: inset(0 calc(100% - var(--cmp, 50%)) 0 0);
   }
-  .badge3d-zoom {
-    position: absolute; right: 4px; bottom: 4px; width: 16px; height: 16px;
+  /* o zoom no hover desalinharia as duas camadas */
+  .gallery figure.paired:hover img { transform: none; }
+  .cmp-handle {
+    position: absolute; top: 0; bottom: 0; left: var(--cmp, 50%); z-index: 4;
+    width: 2px; background: var(--accent); transform: translateX(-1px); pointer-events: none;
+  }
+  .cmp-grip {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #000;
+    display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.55);
+  }
+  .hero-img .cmp-grip, .gallery .wide .cmp-grip { width: 40px; height: 40px; font-size: 15px; }
+  .cmp-tag {
+    position: absolute; top: 10px; z-index: 5; pointer-events: none;
+    font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 999px; backdrop-filter: blur(8px);
+    opacity: .9; transition: opacity .3s;
+  }
+  .cmp-tag.left  { left: 10px;  background: rgba(0,0,0,0.55); color: var(--text); border: 1px solid var(--border); }
+  .cmp-tag.right { right: 10px; background: rgba(201,169,110,0.18); color: var(--accent); border: 1px solid var(--accent2); }
+  .paired.dragging .cmp-tag { opacity: .35; }
+  .cmp-zoom {
+    position: absolute; right: 10px; bottom: 10px; z-index: 5; cursor: zoom-in;
+    width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border);
+    background: rgba(0,0,0,0.6); color: var(--accent); font-size: 12px; line-height: 1;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(0,0,0,0.6); border-radius: 50%; color: var(--accent); font-size: 11px; line-height: 1;
   }
+  .cmp-zoom:hover { border-color: var(--accent); }
 
   /* ---- LIGHTBOX COMPARADOR ---- */
   .lb { position: fixed; inset: 0; z-index: 200; display: none; background: rgba(0,0,0,0.94);
@@ -320,24 +340,20 @@
   <div class="gallery">
     <figure class="wide paired" data-render="assets/pairs/mediterraneo/02-render.jpg" data-real="assets/mediterraneo/02-fachada-golden.jpg" data-scene="Fachada">
       <img src="assets/mediterraneo/02-fachada-golden.jpg" alt="Fachada ao entardecer" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/02-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/mediterraneo/05-aerea.jpg" alt="Vista aérea" loading="lazy"></figure>
     <figure class="paired" data-render="assets/pairs/mediterraneo/03-render.jpg" data-real="assets/mediterraneo/03-deck-piscina.jpg" data-scene="Deck e piscina">
       <img src="assets/mediterraneo/03-deck-piscina.jpg" alt="Deck e piscina" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/03-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/mediterraneo/04-lounge-firepit.jpg" alt="Lounge externo com fire pit" loading="lazy"></figure>
     <figure class="wide paired" data-render="assets/pairs/mediterraneo/06-render.jpg" data-real="assets/mediterraneo/06-living-lareira.jpg" data-scene="Living com lareira">
       <img src="assets/mediterraneo/06-living-lareira.jpg" alt="Living com lareira" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/06-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/mediterraneo/07-estar-integrado.jpg" alt="Estar integrado ao deck" loading="lazy"></figure>
     <figure><img src="assets/mediterraneo/08-area-piscina-coberta.jpg" alt="Área de piscina coberta" loading="lazy"></figure>
     <figure><img src="assets/mediterraneo/09-deck-lounge-golden.jpg" alt="Deck lounge golden hour" loading="lazy"></figure>
     <figure class="paired" data-render="assets/pairs/mediterraneo/10-render.jpg" data-real="assets/mediterraneo/10-cozinha-ilha.jpg" data-scene="Cozinha com ilha">
       <img src="assets/mediterraneo/10-cozinha-ilha.jpg" alt="Cozinha com ilha" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/10-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/mediterraneo/11-cozinha-integrada.jpg" alt="Cozinha integrada ao estar" loading="lazy"></figure>
     <figure><img src="assets/mediterraneo/12-suite-master.jpg" alt="Suíte master" loading="lazy"></figure>
@@ -345,7 +361,6 @@
     <figure><img src="assets/mediterraneo/14-bancada-dupla.jpg" alt="Banheiro com bancada dupla" loading="lazy"></figure>
     <figure class="paired" data-render="assets/pairs/mediterraneo/16-render.jpg" data-real="assets/mediterraneo/16-patio-interno.jpg" data-scene="Pátio interno">
       <img src="assets/mediterraneo/16-patio-interno.jpg" alt="Pátio interno" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mediterraneo/16-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/mediterraneo/17-suite-deck.jpg" alt="Suíte aberta para o deck" loading="lazy"></figure>
   </div>
@@ -366,33 +381,23 @@
 
   <div class="hero-img paired" data-render="assets/pairs/mello/01-render.jpg" data-real="assets/pairs/mello/01-real.jpg" data-scene="Fachada e piscina">
     <img src="assets/pairs/mello/01-real.jpg" alt="Residência Mello — fachada e piscina" loading="lazy">
-    <button class="badge3d" aria-label="Comparar com o render 3D">
-      <span class="badge3d-tag">3D</span>
-      <img src="assets/pairs/mello/01-render.jpg" alt="Render 3D original" loading="lazy">
-      <span class="badge3d-zoom">&#9974;</span>
-    </button>
   </div>
 
   <div class="gallery">
     <figure class="paired" data-render="assets/pairs/mello/03-render.jpg" data-real="assets/pairs/mello/03-real.jpg" data-scene="Living com lareira">
       <img src="assets/pairs/mello/03-real.jpg" alt="Living com lareira" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/03-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure class="paired" data-render="assets/pairs/mello/02-render.jpg" data-real="assets/pairs/mello/02-real.jpg" data-scene="Living e estar">
       <img src="assets/pairs/mello/02-real.jpg" alt="Living e estar integrado" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/02-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure class="paired" data-render="assets/pairs/mello/04-render.jpg" data-real="assets/pairs/mello/04-real.jpg" data-scene="Sala com painel">
       <img src="assets/pairs/mello/04-real.jpg" alt="Sala com painel" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/04-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure class="paired" data-render="assets/pairs/mello/05-render.jpg" data-real="assets/pairs/mello/05-real.jpg" data-scene="Escada">
       <img src="assets/pairs/mello/05-real.jpg" alt="Escada" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/05-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure class="paired" data-render="assets/pairs/mello/06-render.jpg" data-real="assets/pairs/mello/06-real.jpg" data-scene="Suíte e banheiro">
       <img src="assets/pairs/mello/06-real.jpg" alt="Suíte e banheiro" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/mello/06-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/mello2/03-aerea-piscina.jpg" alt="Vista aérea da piscina" loading="lazy"></figure>
     <figure><img src="assets/mello2/07-cozinha-ilha.jpg" alt="Cozinha e jantar com ilha" loading="lazy"></figure>
@@ -424,22 +429,18 @@
   <div class="gallery">
     <figure class="wide paired" data-render="assets/pairs/vista/01-render.jpg" data-real="assets/vista2/01.jpg" data-scene="Implantação no relevo">
       <img src="assets/vista2/01.jpg" alt="Casa Vista implantada no relevo com piscina" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/01-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure class="wide"><img src="assets/vista2/05.jpg" alt="Casa Vista — volume de vidro e piscina" loading="lazy"></figure>
     <figure><img src="assets/vista2/06.jpg" alt="Fachada e jardim" loading="lazy"></figure>
     <figure class="paired" data-render="assets/pairs/vista/02-render.jpg" data-real="assets/vista2/02.jpg" data-scene="Estar aberto para a piscina">
       <img src="assets/vista2/02.jpg" alt="Estar aberto para a piscina" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/02-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure class="paired" data-render="assets/pairs/vista/04-render.jpg" data-real="assets/vista2/04.jpg" data-scene="Jantar com vista para a serra">
       <img src="assets/vista2/04.jpg" alt="Jantar com vista para a serra" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/04-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/vista2/03.jpg" alt="Terraço lounge coberto" loading="lazy"></figure>
     <figure class="paired" data-render="assets/pairs/vista/07-render.jpg" data-real="assets/vista2/07.jpg" data-scene="Living com vista para a piscina">
       <img src="assets/vista2/07.jpg" alt="Living com vista para a piscina" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/vista/07-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/vista2/08.jpg" alt="Pátio de entrada" loading="lazy"></figure>
     <figure><img src="assets/vista2/09.jpg" alt="Suíte com brises e pátio" loading="lazy"></figure>
@@ -464,7 +465,6 @@
   <div class="gallery">
     <figure class="wide paired" data-render="assets/pairs/arbor/01-render.jpg" data-real="assets/arbor2/01.jpg" data-scene="Circulação envidraçada">
       <img src="assets/arbor2/01.jpg" alt="Circulação envidraçada para a mata" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/arbor/01-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure><img src="assets/arbor2/00b-fachada.jpg" alt="Fachada" loading="lazy"></figure>
     <figure><img src="assets/arbor2/02.jpg" alt="Suíte" loading="lazy"></figure>
@@ -472,11 +472,9 @@
     <figure><img src="assets/arbor2/04.jpg" alt="Quarto com vista" loading="lazy"></figure>
     <figure class="paired" data-render="assets/pairs/arbor/05-render.jpg" data-real="assets/arbor2/05.jpg" data-scene="Suíte com estar">
       <img src="assets/arbor2/05.jpg" alt="Suíte com estar" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/arbor/05-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
     <figure class="paired" data-render="assets/pairs/arbor/06-render.jpg" data-real="assets/arbor2/06.jpg" data-scene="Suíte com TV">
       <img src="assets/arbor2/06.jpg" alt="Suíte com TV" loading="lazy">
-      <button class="badge3d" aria-label="Comparar com o render 3D"><span class="badge3d-tag">3D</span><img src="assets/pairs/arbor/06-render.jpg" alt="Render 3D" loading="lazy"><span class="badge3d-zoom">&#9974;</span></button>
     </figure>
   </div>
 
@@ -593,10 +591,44 @@
     setPct(x / rect.width * 100);
   }
 
+  /* Comparador inline: cada .paired ganha o render por cima, recortado pela alça.
+     Arrastar em qualquer ponto da imagem move a divisão. A lupa abre o lightbox. */
   document.querySelectorAll('.paired').forEach(function (fig) {
-    fig.addEventListener('click', function () {
+    var render = document.createElement('img');
+    render.src = fig.dataset.render;
+    render.className = 'cmp-render';
+    render.alt = 'Render 3D de ' + (fig.dataset.scene || 'projeto');
+    render.loading = 'lazy';
+    render.draggable = false;
+    fig.appendChild(render);
+
+    fig.insertAdjacentHTML('beforeend',
+      '<span class="cmp-tag left">Render 3D</span>' +
+      '<span class="cmp-tag right">Foto real</span>' +
+      '<div class="cmp-handle"><span class="cmp-grip">&#8596;</span></div>' +
+      '<button class="cmp-zoom" aria-label="Ampliar comparação">&#9974;</button>');
+
+    fig.querySelector('.cmp-zoom').addEventListener('click', function (e) {
+      e.stopPropagation();
       open(fig.dataset.render, fig.dataset.real, fig.dataset.scene);
     });
+
+    var arrastando = false;
+    function posicionar(e) {
+      var r = fig.getBoundingClientRect();
+      var pct = (e.clientX - r.left) / r.width * 100;
+      fig.style.setProperty('--cmp', Math.max(0, Math.min(100, pct)) + '%');
+    }
+    fig.addEventListener('pointerdown', function (e) {
+      if (e.target.classList.contains('cmp-zoom')) return;
+      arrastando = true;
+      fig.classList.add('dragging');
+      fig.setPointerCapture(e.pointerId);
+      posicionar(e);
+    });
+    fig.addEventListener('pointermove', function (e) { if (arrastando) posicionar(e); });
+    fig.addEventListener('pointerup', function () { arrastando = false; fig.classList.remove('dragging'); });
+    fig.addEventListener('pointercancel', function () { arrastando = false; fig.classList.remove('dragging'); });
   });
 
   document.getElementById('lbClose').addEventListener('click', close);
