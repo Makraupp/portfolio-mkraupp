@@ -227,15 +227,6 @@
   .outros { padding: 96px 48px; max-width: var(--page-w); margin: 0 auto; border-top: 1px solid var(--border); }
   .outros h2 { font-size: clamp(28px, 3.6vw, 40px); font-weight: 700; letter-spacing: -0.8px; color: var(--text); margin-bottom: 16px; }
   .outros > p { font-size: 16px; color: var(--muted); max-width: 640px; line-height: 1.7; }
-  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 44px; }
-  .proj-card { position: relative; border-radius: 14px; overflow: hidden; background: var(--surface); aspect-ratio: 16/10; }
-  .proj-card img { width: 100%; height: 100%; object-fit: cover; opacity: .7; transition: opacity .4s, transform .5s; }
-  .proj-card:hover img { opacity: .85; transform: scale(1.03); }
-  .proj-info { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75)); }
-  .proj-cat { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
-  .proj-card h3 { font-size: 22px; font-weight: 600; color: var(--text); letter-spacing: -0.4px; margin-bottom: 4px; }
-  .proj-card p { font-size: 13px; color: var(--muted); }
-  .todo { outline: 1px dashed var(--accent2); outline-offset: -1px; }
 
   /* ---- CTA ---- */
   .cta { padding: 104px 48px; max-width: var(--page-w); margin: 0 auto; border-top: 1px solid var(--border); text-align: center; }
@@ -271,7 +262,6 @@
     .cap-card:last-child { border-radius: 0 0 12px 12px; }
     .gallery { grid-template-columns: 1fr 1fr; }
     .gallery .wide { grid-column: span 2; }
-    .proj-grid { grid-template-columns: 1fr; }
     .signature { flex-direction: column; gap: 28px; align-items: flex-start; }
   }
 </style>
@@ -513,16 +503,6 @@
   </div>
   <div class="vimeo-cap">Projeto Tanzania · Karibu · toque para ativar o som</div>
 
-  <div class="proj-grid">
-    <div class="proj-card todo">
-      <img src="assets/outros/solum-poster.webp" alt="Casa Solum" loading="lazy">
-      <div class="proj-info">
-        <div class="proj-cat">A confirmar</div>
-        <h3>Casa Solum</h3>
-        <p>Slot reservado. Confirmar se entra nesta seção e com qual descrição.</p>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ==================== CTA ==================== -->
