@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiência 3D interativa · Matheus Kraupp</title>
+<meta name="description" content="Experiências 3D interativas para incorporadoras e construtoras. O comprador percorre o empreendimento com um personagem, ambiente por ambiente, direto no navegador.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://makraupp.github.io/portfolio-mkraupp/experiencia.html">
+<meta property="og:title" content="O empreendimento, percorrido antes da obra">
+<meta property="og:description" content="Experiências 3D interativas para incorporadoras e construtoras.">
+<meta property="og:image" content="https://makraupp.github.io/portfolio-mkraupp/assets/experiencia/ext-deck.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='45' font-family='Arial' font-size='38' font-weight='600' fill='%23C9A96E' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap">
+<link rel="preload" as="image" href="assets/experiencia/filme-poster.webp">
+<style>
+:root{
+  --bg:#000;--surface:#111;--surface2:#1A1A1A;--surface3:#242424;
+  --ink:#F5F5F7;--ink-soft:#C7C7CC;--muted:#8E8E93;--accent:#C9A96E;
+  --s1:15px;--s2:17px;--s3:clamp(20px,1.7vw,24px);--s4:clamp(28px,3vw,44px);--s5:clamp(40px,5.4vw,84px);
+  --m:clamp(20px,3.4vw,56px);--ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{background:var(--bg);font-size:var(--s2);line-height:1.6;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+::selection{background:var(--accent);color:#000}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 28px;background:var(--accent);color:#000;font-weight:500;font-size:var(--s2);text-decoration:none;transition:transform .2s var(--ease),background-color .2s}
+.btn:hover{background:#d8bb85}.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--ink);padding:0 4px;height:52px}
+.btn.ghost:hover{background:transparent;color:var(--accent)}
+.wrap{padding:0 var(--m)}
+h2{font-size:var(--s4);font-weight:400;line-height:1.1;letter-spacing:-.025em}
+.lead{font-size:var(--s3);font-weight:300;line-height:1.45;color:var(--ink-soft)}
+
+/* topo */
+.bar{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:28px var(--m)}
+.mark{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:500;letter-spacing:.18em;font-size:var(--s1)}
+.mark i{display:grid;place-items:center;width:34px;height:34px;background:rgba(0,0,0,.55);color:var(--accent);font-style:normal;letter-spacing:0;font-size:18px}
+.bar nav{display:flex;align-items:center;gap:28px;font-size:var(--s1)}
+.bar nav a{text-decoration:none;color:var(--ink)}
+.bar nav a:not(.btn):hover{color:var(--accent)}
+.bar .btn{height:42px;padding:0 18px;font-size:var(--s1)}
+
+/* filme */
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:#000}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:62%;background:linear-gradient(to top,rgba(0,0,0,.82),rgba(0,0,0,0))}
+.hero-t{position:absolute;z-index:2;left:var(--m);right:var(--m);bottom:clamp(36px,7vh,80px);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:32px}
+.hero h1{font-size:var(--s5);font-weight:400;line-height:1.02;letter-spacing:-.035em}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}.hero h1 .ln span{display:block}
+.hero p{margin:20px 0 28px;max-width:52ch;color:var(--ink-soft);font-size:var(--s2)}
+.hero .acts{display:flex;gap:20px;flex-wrap:wrap}
+.hero-cap{display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-size:var(--s1);color:var(--ink-soft);text-align:right}
+.play{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:rgba(255,255,255,.12);font-size:var(--s1);transition:background-color .2s}
+.play:hover{background:rgba(255,255,255,.22)}
+
+/* abertura */
+.open{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,5vw,96px);align-items:center;padding-top:clamp(96px,9vw,140px)}
+.open h2{margin-bottom:24px}
+.open figure img{width:100%;aspect-ratio:16/10;object-fit:cover}
+figcaption{margin-top:12px;font-size:var(--s1);color:var(--muted)}
+
+/* recursos */
+.feat{margin-top:clamp(96px,9vw,140px)}
+.feat-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:56px}
+.feat-head .lead{max-width:44ch}
+.tabs{display:grid;grid-template-columns:4fr 8fr;gap:clamp(24px,4vw,64px);align-items:stretch}
+.tab-list{display:flex;flex-direction:column;gap:6px}
+.tab{display:block;text-align:left;padding:22px 24px;background:var(--surface);transition:background-color .25s}
+.tab:hover{background:var(--surface2)}
+.tab b{display:block;font-size:var(--s3);font-weight:400;letter-spacing:-.01em}
+.tab span{display:block;margin-top:8px;color:var(--ink-soft);font-size:16px;line-height:1.5;max-height:0;overflow:hidden;opacity:0;transition:opacity .35s}
+.tab[aria-selected=true]{background:var(--surface3)}
+.tab[aria-selected=true] span{max-height:none;opacity:1}
+.tab[aria-selected=true] b{color:var(--ink)}
+.tab-view{position:relative;background:var(--surface);aspect-ratio:16/10;overflow:hidden}
+.tab-view img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.03);transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
+.tab-view img.on{opacity:1;transform:none}
+.cam{position:absolute;z-index:2;left:16px;bottom:16px;display:flex;background:rgba(0,0,0,.65)}
+.cam button{height:40px;padding:0 16px;font-size:var(--s1);color:var(--ink-soft);transition:background-color .2s,color .2s}
+.cam button[aria-pressed=true]{background:var(--ink);color:#000}
+.cam[hidden]{display:none}
+
+/* processo sobre imagem */
+.proc{position:relative;margin-top:clamp(96px,9vw,140px);min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.proc>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.72)}
+.proc::after{content:"";position:absolute;inset:auto 0 0 0;height:70%;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,0))}
+.proc-in{position:relative;z-index:2;padding:0 var(--m) clamp(40px,6vw,80px)}
+.proc h2{margin-bottom:40px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.4vw,40px)}
+.step{padding-top:20px;box-shadow:inset 0 3px 0 var(--accent)}
+.step b{display:block;font-size:var(--s3);font-weight:400;margin-bottom:8px}
+.step p{font-size:16px;color:var(--ink-soft);line-height:1.5}
+
+/* aplicações */
+.apps{margin-top:clamp(96px,9vw,140px)}
+.apps h2{margin-bottom:48px}
+.mosaic{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(180px,20vw,300px);gap:8px}
+.tile{position:relative;overflow:hidden;background:var(--surface)}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.tile:hover img{transform:scale(1.04)}
+.tile::after{content:"";position:absolute;inset:auto 0 0 0;height:65%;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,0))}
+.tile div{position:absolute;z-index:2;left:24px;right:24px;bottom:22px}
+.tile b{display:block;font-size:var(--s3);font-weight:400}
+.tile p{margin-top:6px;font-size:16px;color:var(--ink-soft);line-height:1.45;max-width:46ch}
+.t1{grid-column:1 / 8;grid-row:span 2}.t2{grid-column:8 / 13}.t3{grid-column:8 / 13}.t4{grid-column:1 / 6}.t5{grid-column:6 / 13}
+
+/* galeria */
+.gal{margin-top:clamp(96px,9vw,140px)}
+.gal-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:40px}
+.strip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--m);scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip figure{flex:0 0 min(78vw,1100px);scroll-snap-align:center}
+.strip img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.gal-nav{display:flex;gap:6px}
+.gal-nav button{width:48px;height:48px;background:var(--surface2);font-size:20px;transition:background-color .2s,transform .15s}
+.gal-nav button:hover{background:var(--surface3)}.gal-nav button:active{transform:scale(.94)}
+
+/* perguntas */
+.faq{margin-top:clamp(96px,9vw,140px);display:grid;grid-template-columns:4fr 8fr;gap:clamp(32px,5vw,96px)}
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:48px 40px}
+.qa b{display:block;font-size:var(--s3);font-weight:400;line-height:1.25;margin-bottom:10px}
+.qa p{color:var(--ink-soft);font-size:16px;line-height:1.55}
+
+/* contato */
+.cta{position:relative;margin-top:clamp(96px,9vw,140px);height:88svh;min-height:560px;overflow:hidden}
+.cta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 35%,rgba(0,0,0,.82))}
+.cta-t{position:absolute;z-index:2;right:var(--m);bottom:clamp(48px,9vh,96px);width:min(44vw,560px)}
+.cta-t p{margin:18px 0 28px;color:var(--ink)}
+.cta-t .acts{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+
+footer{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:56px var(--m) 28px;background:var(--surface);font-size:var(--s1);color:var(--ink-soft)}
+footer b{display:block;color:var(--ink);font-weight:500;margin-bottom:6px}
+footer a{display:block;text-decoration:none}footer a:hover{color:var(--accent)}
+footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted)}
+
+/* movimento */
+.js [data-rv]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0) * 80ms)}
+.js [data-rv].in{opacity:1;transform:none}
+.js .hero h1 .ln span{transform:translateY(105%);transition:transform 1s var(--ease) .2s}
+.js .hero h1 .ln:nth-child(2) span{transition-delay:.32s}
+.js .loaded .hero h1 .ln span{transform:none}
+.js .hero p,.js .hero .acts,.js .hero-cap{opacity:0;transition:opacity .8s var(--ease) .7s}
+.js .loaded .hero p,.js .loaded .hero .acts,.js .loaded .hero-cap{opacity:1}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js [data-rv],.js .hero h1 .ln span{transform:none!important;transition:opacity .3s!important}
+  .tab-view img,.tile img{transition:opacity .3s}
+}
+
+@media (max-width:900px){
+  .bar nav a:not(.btn){display:none}
+  .hero{height:auto;min-height:0}
+  .hero video{position:relative;height:62svh}
+  .hero .poster{height:62svh}
+  .hero::after{display:none}
+  .hero-t{position:static;grid-template-columns:1fr;padding:32px var(--m) 48px;gap:24px}
+  .hero-cap{align-items:flex-start;text-align:left}
+  .proc::after{height:100%;background:linear-gradient(to top,rgba(0,0,0,.92) 55%,rgba(0,0,0,.2))}
+  .open,.tabs,.faq{grid-template-columns:1fr}
+  .feat-head,.gal-head{flex-direction:column;align-items:flex-start}
+  .steps{grid-template-columns:1fr 1fr;row-gap:28px}
+  .mosaic{grid-template-columns:1fr;grid-auto-rows:62vw}
+  .t1,.t2,.t3,.t4,.t5{grid-column:auto;grid-row:auto}
+  .qa{grid-template-columns:1fr;gap:32px}
+  .cta{height:auto;min-height:0}
+  .cta img{position:static;height:62vw}
+  .cta::after{display:none}
+  .cta-t{position:static;width:auto;padding:32px var(--m) 48px;background:var(--surface)}
+  footer{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .hero h1{font-size:7vw}
+  .steps{grid-template-columns:1fr}
+  .tab{padding:18px}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+<div id="pg">
+
+<header class="hero">
+  <img class="poster" src="assets/experiencia/filme-poster.webp" alt="" width="1600" height="900">
+  <video id="film" muted loop playsinline autoplay preload="auto" poster="assets/experiencia/filme-poster.webp" aria-label="Filme da Casa Vista gravado na experiência interativa: deck, estar, cozinha, circulação, quarto e fachada">
+    <source src="assets/experiencia/filme-casa-vista-960.mp4" type="video/mp4" media="(max-width: 900px)">
+    <source src="assets/experiencia/filme-casa-vista.mp4" type="video/mp4">
+  </video>
+  <div class="bar">
+    <a class="mark" href="index.html" aria-label="Matheus Kraupp, página inicial"><i>M</i>KRAUPP</a>
+    <nav aria-label="Principal">
+      <a href="#recursos">A experiência</a>
+      <a href="#processo">Processo</a>
+      <a href="index.html">Imagens e filmes</a>
+      <a class="btn" href="#contato">Agendar apresentação</a>
+    </nav>
+  </div>
+  <div class="hero-t">
+    <div>
+      <h1><span class="ln"><span>O empreendimento,</span></span><span class="ln"><span>percorrido antes da obra.</span></span></h1>
+      <p>Experiências 3D interativas para incorporadoras e construtoras. O comprador conduz um personagem pelo projeto, ambiente por ambiente, direto no navegador.</p>
+      <div class="acts"><a class="btn" href="#contato">Agendar apresentação</a><a class="btn ghost" href="#recursos">Conhecer a experiência</a></div>
+    </div>
+    <div class="hero-cap">
+      <span>Casa Vista · imagens gravadas na própria experiência</span>
+      <button class="play" id="playbtn" type="button" aria-pressed="false">Pausar filme</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="open wrap">
+  <div data-rv>
+    <h2>Entender o espaço acelera a decisão.</h2>
+    <p class="lead">A experiência interativa leva o cliente para dentro do projeto: ele chega pela rua, atravessa o deck, mede o pé-direito do estar e sobe ao último pavimento, no próprio ritmo.</p>
+  </div>
+  <figure data-rv style="--i:1">
+    <img src="assets/experiencia/int-estar.webp" width="1920" height="1080" alt="Estar e jantar integrados da Casa Vista, com forro de madeira e pé-direito duplo" loading="lazy">
+    <figcaption>Estar e jantar da Casa Vista, capturados na experiência.</figcaption>
+  </figure>
+</section>
+
+<section class="feat wrap" id="recursos" aria-labelledby="feat-h">
+  <div class="feat-head" data-rv>
+    <h2 id="feat-h">O que a experiência entrega</h2>
+    <p class="lead">Fidelidade ao projeto e liberdade de navegação, sem instalação.</p>
+  </div>
+  <div class="tabs" data-rv style="--i:1">
+    <div class="tab-list" role="tablist" aria-label="Recursos">
+      <button class="tab" role="tab" aria-selected="true" data-img="vista-3p" data-cam="1"><b>Escala real e colisão</b><span>Paredes, mobiliário e circulação respondem como no imóvel construído. O personagem é a referência de escala para pé-direito, vãos e varandas.</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-img="ext-deck"><b>Luz calculada para o lote</b><span>Iluminação pré-calculada com a orientação solar do terreno, em qualidade de render, e navegação em tempo real.</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-img="int-quarto"><b>Todos os pavimentos</b><span>Escadas e níveis navegáveis, do acesso pela rua ao último pavimento, com paradas guiadas para a condução do corretor.</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-img="ext-rua"><b>Acesso por link</b><span>Abre no navegador, sem aplicativo. O mesmo endereço serve ao site, às campanhas e à tela do stand.</span></button>
+    </div>
+    <div class="tab-view" role="tabpanel" aria-live="polite">
+      <img class="on" src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="Personagem caminhando entre o estar e a cozinha da Casa Vista">
+      <img src="assets/experiencia/vista-1p.webp" width="1920" height="1080" alt="O mesmo ambiente visto em primeira pessoa" loading="lazy">
+      <img src="assets/experiencia/ext-deck.webp" width="1920" height="1080" alt="Deck e piscina da Casa Vista com a luz do fim da tarde" loading="lazy">
+      <img src="assets/experiencia/int-quarto.webp" width="1920" height="1080" alt="Quarto com escritório no pavimento superior" loading="lazy">
+      <img src="assets/experiencia/ext-rua.webp" width="1920" height="1080" alt="Acesso pela rua, com escada e pergolado" loading="lazy">
+      <div class="cam" id="cam" role="group" aria-label="Ponto de vista">
+        <button type="button" aria-pressed="true" data-v="vista-3p">Terceira pessoa</button>
+        <button type="button" aria-pressed="false" data-v="vista-1p">Primeira pessoa</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proc" id="processo" aria-labelledby="proc-h">
+  <img src="assets/experiencia/ext-lateral.webp" width="1920" height="1080" alt="Vista lateral da Casa Vista sobre o terreno, com piscina e deck" loading="lazy">
+  <div class="proc-in">
+    <h2 id="proc-h" data-rv>Do modelo do arquiteto à experiência publicada.</h2>
+    <div class="steps">
+      <div class="step" data-rv style="--i:0"><b>Modelo</b><p>Partimos do 3D já existente do projeto, em SketchUp, ArchiCAD ou Revit. As medidas permanecem as do arquiteto.</p></div>
+      <div class="step" data-rv style="--i:1"><b>Preparação</b><p>Otimização da geometria, materiais, vidros e portas para navegação fluida no navegador.</p></div>
+      <div class="step" data-rv style="--i:2"><b>Iluminação e física</b><p>Luz solar calculada para o lote, colisão, escadas e pavimentos navegáveis.</p></div>
+      <div class="step" data-rv style="--i:3"><b>Publicação</b><p>Entrega por link, pronta para site, campanhas e stand de vendas, com a identidade do empreendimento.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="apps wrap" aria-labelledby="apps-h">
+  <h2 id="apps-h" data-rv>Uma experiência para toda a jornada de venda.</h2>
+  <div class="mosaic">
+    <div class="tile t1" data-rv><img src="assets/experiencia/deck-estar.webp" width="1920" height="1080" alt="Deck integrado ao estar" loading="lazy"><div><b>Stand de vendas</b><p>Tela grande e controle na mão do cliente, com o corretor conduzindo a visita pelos ambientes certos.</p></div></div>
+    <div class="tile t2" data-rv style="--i:1"><img src="assets/experiencia/int-cozinha.webp" width="1920" height="1080" alt="Cozinha com ilha central" loading="lazy"><div><b>Site e campanhas</b><p>O lead entra no imóvel a partir do anúncio.</p></div></div>
+    <div class="tile t3" data-rv style="--i:2"><img src="assets/experiencia/int-jantar.webp" width="1920" height="1080" alt="Jantar com vista para o jardim" loading="lazy"><div><b>Lançamento</b><p>Filmes e cortes gravados da própria experiência.</p></div></div>
+    <div class="tile t4" data-rv style="--i:3"><img src="assets/experiencia/ext-frente.webp" width="1920" height="1080" alt="Fachada da Casa Vista com piscina" loading="lazy"><div><b>Investidores e parceiros</b><p>Apresentação do produto antes do início da obra.</p></div></div>
+    <div class="tile t5" data-rv style="--i:4"><img src="assets/experiencia/ext-fundos.webp" width="1920" height="1080" alt="Fachada dos fundos com o volume do pavimento superior" loading="lazy"><div><b>Revisão de projeto</b><p>Arquitetura, engenharia e comercial avaliando o mesmo espaço, na mesma escala.</p></div></div>
+  </div>
+</section>
+
+<section class="gal" aria-labelledby="gal-h">
+  <div class="gal-head wrap" data-rv>
+    <div><h2 id="gal-h">Casa Vista</h2><p class="lead" style="margin-top:12px">Residência de alto padrão em três pavimentos. Todas as imagens foram capturadas na experiência.</p></div>
+    <div class="gal-nav"><button type="button" id="gprev" aria-label="Imagem anterior">&larr;</button><button type="button" id="gnext" aria-label="Próxima imagem">&rarr;</button></div>
+  </div>
+  <div class="strip" id="strip" tabindex="0" aria-label="Galeria, role para o lado">
+    <figure><img src="assets/experiencia/ext-deck.webp" width="1920" height="1080" alt="Deck e piscina" loading="lazy"><figcaption>Deck e piscina</figcaption></figure>
+    <figure><img src="assets/experiencia/int-estar.webp" width="1920" height="1080" alt="Estar e jantar" loading="lazy"><figcaption>Estar e jantar</figcaption></figure>
+    <figure><img src="assets/experiencia/int-cozinha.webp" width="1920" height="1080" alt="Cozinha" loading="lazy"><figcaption>Cozinha</figcaption></figure>
+    <figure><img src="assets/experiencia/int-quarto.webp" width="1920" height="1080" alt="Quarto no pavimento superior" loading="lazy"><figcaption>Pavimento superior</figcaption></figure>
+    <figure><img src="assets/experiencia/ext-fundos.webp" width="1920" height="1080" alt="Fachada dos fundos" loading="lazy"><figcaption>Fachada dos fundos</figcaption></figure>
+    <figure><img src="assets/experiencia/ext-rua.webp" width="1920" height="1080" alt="Acesso pela rua" loading="lazy"><figcaption>Acesso pela rua</figcaption></figure>
+  </div>
+</section>
+
+<section class="faq wrap" aria-labelledby="faq-h">
+  <h2 id="faq-h" data-rv>Perguntas frequentes</h2>
+  <div class="qa">
+    <div data-rv><b>Qual material é necessário?</b><p>O modelo 3D do projeto, em SketchUp ou exportado do ArchiCAD ou do Revit. Quando houver apenas plantas, avaliamos a modelagem como etapa adicional.</p></div>
+    <div data-rv style="--i:1"><b>O cliente precisa instalar algo?</b><p>Não. A experiência abre no navegador, por link. No stand, roda em um computador ligado a uma tela grande.</p></div>
+    <div data-rv style="--i:2"><b>Funciona em celulares?</b><p>Há controles de toque e uma versão otimizada, hoje em validação em aparelhos reais. A experiência completa roda em computadores e telas de stand.</p></div>
+    <div data-rv style="--i:3"><b>A experiência é fiel ao projeto?</b><p>A geometria vem do modelo do arquiteto, sem redesenho. Materiais e iluminação são conferidos contra as imagens oficiais do empreendimento.</p></div>
+    <div data-rv style="--i:4"><b>Atende empreendimentos inteiros?</b><p>Sim. O mesmo processo se aplica a áreas comuns, decorado e unidades tipo. Escopo e prazo são definidos a partir do modelo.</p></div>
+    <div data-rv style="--i:5"><b>Como é feito o orçamento?</b><p>Por projeto, conforme área, número de ambientes e nível de acabamento. Após analisar o material, enviamos escopo, cronograma e investimento.</p></div>
+  </div>
+</section>
+
+<section class="cta" id="contato" aria-labelledby="cta-h">
+  <img src="assets/experiencia/ext-fundos.webp" width="1920" height="1080" alt="" loading="lazy">
+  <div class="cta-t">
+    <h2 id="cta-h" data-rv>Apresente o próximo lançamento desta forma.</h2>
+    <p data-rv style="--i:1">Envie o projeto para uma avaliação. Retornamos com a proposta de escopo, cronograma e investimento, e uma demonstração ao vivo da Casa Vista.</p>
+    <div class="acts" data-rv style="--i:2">
+      <a class="btn" href="https://wa.me/5511976791813?text=Ol%C3%A1%2C%20Matheus.%20Gostaria%20de%20agendar%20uma%20apresenta%C3%A7%C3%A3o%20da%20experi%C3%AAncia%203D%20interativa%20para%20um%20empreendimento." target="_blank" rel="noopener">Agendar apresentação</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div><b>Matheus Kraupp</b>Direção de imagem e experiências 3D para o mercado imobiliário.</div>
+  <div><b>Contato</b><a href="https://wa.me/5511976791813">(11) 97679-1813</a><a href="mailto:makraupp@gmail.com">makraupp@gmail.com</a></div>
+  <div><b>Portfólio</b><a href="index.html">Imagens e filmes</a><a href="#recursos">Experiência 3D</a></div>
+  <div><b>Redes</b><a href="https://instagram.com/matheuskraupp" target="_blank" rel="noopener">@matheuskraupp</a></div>
+  <small>Imagens e filme capturados na experiência interativa da Casa Vista. Projeto apresentado em caráter ilustrativo. © 2026</small>
+</footer>
+</div>
+
+<script>
+(() => {
+  const P = 'assets/experiencia/';
+  // filme
+  const v = document.getElementById('film'), pb = document.getElementById('playbtn');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still) { v.removeAttribute('autoplay'); v.pause(); pb.textContent = 'Reproduzir filme'; pb.setAttribute('aria-pressed', 'true'); }
+  pb.onclick = () => { if (v.paused) { v.play(); pb.textContent = 'Pausar filme'; pb.setAttribute('aria-pressed', 'false'); } else { v.pause(); pb.textContent = 'Reproduzir filme'; pb.setAttribute('aria-pressed', 'true'); } };
+
+  // recursos
+  const imgs = [...document.querySelectorAll('.tab-view img')], cam = document.getElementById('cam');
+  const show = (name) => imgs.forEach((i) => i.classList.toggle('on', i.getAttribute('src') === P + name + '.webp'));
+  const tabs = [...document.querySelectorAll('.tab')];
+  tabs.forEach((t) => t.onclick = () => {
+    tabs.forEach((x) => x.setAttribute('aria-selected', x === t));
+    show(t.dataset.img); cam.hidden = !t.dataset.cam;
+    cam.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-pressed', k === 0));
+  });
+  cam.querySelectorAll('button').forEach((b) => b.onclick = () => {
+    cam.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b)); show(b.dataset.v);
+  });
+
+  // galeria
+  const strip = document.getElementById('strip'), step = () => strip.querySelector('figure').offsetWidth + 8;
+  document.getElementById('gprev').onclick = () => strip.scrollBy({ left: -step(), behavior: 'smooth' });
+  document.getElementById('gnext').onclick = () => strip.scrollBy({ left: step(), behavior: 'smooth' });
+
+  // entradas
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  document.querySelectorAll('[data-rv]').forEach((el) => io.observe(el));
+  requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById('pg').classList.add('loaded')));
+})();
+</script>
+</body>
+</html>
