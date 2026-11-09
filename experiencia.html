@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>Experiência 3D interativa · Matheus Kraupp</title>
 <meta name="description" content="Experiências 3D interativas para incorporadoras e construtoras. O comprador percorre o empreendimento com um personagem, ambiente por ambiente, direto no navegador.">
 <meta property="og:type" content="website">
@@ -27,6 +28,7 @@
 html{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 body{background:var(--bg);font-size:var(--s2);line-height:1.6;overflow-x:hidden}
 img,video{display:block;max-width:100%}
+img{height:auto}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -41,7 +43,7 @@ h2{font-size:var(--s4);font-weight:400;line-height:1.1;letter-spacing:-.025em}
 
 /* topo */
 .bar{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:28px var(--m)}
-.mark{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:500;letter-spacing:.18em;font-size:var(--s1)}
+.mark{display:flex;align-items:center;gap:12px;min-height:44px;text-decoration:none;font-weight:500;letter-spacing:.18em;font-size:var(--s1)}
 .mark i{display:grid;place-items:center;width:34px;height:34px;background:rgba(0,0,0,.55);color:var(--accent);font-style:normal;letter-spacing:0;font-size:18px}
 .bar nav{display:flex;align-items:center;gap:28px;font-size:var(--s1)}
 .bar nav a{text-decoration:none;color:var(--ink)}
@@ -156,32 +158,84 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
   .tab-view img,.tile img{transition:opacity .3s}
 }
 
+/* perguntas como acordeão no celular, abertas no computador */
+.qa details summary{list-style:none;display:block}
+.qa details summary::-webkit-details-marker{display:none}
+.tab-desc,.mcta{display:none}
+
 @media (max-width:900px){
-  .bar nav a:not(.btn){display:none}
+  :root{--m:20px}
+  body{padding-bottom:84px}
+  .bar{padding:16px var(--m)}
+  .bar nav{display:none}
+  /* abertura: filme em cima, texto embaixo, botão dentro da primeira tela */
   .hero{height:auto;min-height:0}
-  .hero video{position:relative;height:62svh}
-  .hero .poster{height:62svh}
+  .hero video{position:relative;height:54svh}
+  .hero .poster{height:54svh}
   .hero::after{display:none}
-  .hero-t{position:static;grid-template-columns:1fr;padding:32px var(--m) 48px;gap:24px}
-  .hero-cap{align-items:flex-start;text-align:left}
-  .proc::after{height:100%;background:linear-gradient(to top,rgba(0,0,0,.92) 55%,rgba(0,0,0,.2))}
-  .open,.tabs,.faq{grid-template-columns:1fr}
-  .feat-head,.gal-head{flex-direction:column;align-items:flex-start}
-  .steps{grid-template-columns:1fr 1fr;row-gap:28px}
-  .mosaic{grid-template-columns:1fr;grid-auto-rows:62vw}
-  .t1,.t2,.t3,.t4,.t5{grid-column:auto;grid-row:auto}
-  .qa{grid-template-columns:1fr;gap:32px}
+  .hero-t{position:static;grid-template-columns:1fr;padding:24px var(--m) 8px;gap:0}
+  .hero h1{font-size:clamp(26px,7vw,40px)}
+  .hero p{margin:14px 0 22px;font-size:16px}
+  .hero .acts{flex-direction:column;gap:4px}
+  .hero .acts .btn{width:100%;height:54px}
+  .hero-cap{position:absolute;z-index:3;top:calc(54svh - 60px);right:var(--m)}
+  .hero-cap span{display:none}
+  .play{height:44px;background:rgba(0,0,0,.55)}
+  /* seções */
+  .open,.faq{grid-template-columns:1fr;gap:28px}
+  .open{padding-top:72px}
+  .feat,.apps,.gal,.faq,.cta,.proc{margin-top:88px}
+  .feat-head,.gal-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:28px}
+  .lead{font-size:18px}
+  /* recursos: imagem primeiro, abas em fila deslizável, texto da aba embaixo */
+  .tabs{display:flex;flex-direction:column;gap:14px}
+  .tab-view{order:-1;margin:0 calc(-1 * var(--m))}
+  .tab-list{flex-direction:row;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--m));padding:0 var(--m);scrollbar-width:none}
+  .tab-list::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;scroll-snap-align:start;display:flex;align-items:center;min-height:48px;padding:0 18px}
+  .tab b{font-size:16px;white-space:nowrap}
+  .tab span{display:none}
+  .tab-desc{display:block;color:var(--ink-soft);font-size:16px;line-height:1.55;min-height:4.7em}
+  .cam{left:12px;bottom:12px}
+  .cam button{height:44px;padding:0 14px}
+  /* processo: foto limpa em cima, etapas embaixo */
+  .proc{min-height:0;display:block}
+  .proc>img{position:static;height:62vw;filter:none}
+  .proc::after{display:none}
+  .proc-in{padding:28px var(--m) 0}
+  .proc h2{margin-bottom:28px}
+  .steps{grid-template-columns:1fr;gap:26px}
+  /* aplicações: carrossel com texto fora da foto */
+  .apps h2{margin-bottom:28px}
+  .mosaic{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--m));padding:0 var(--m);scrollbar-width:none}
+  .mosaic::-webkit-scrollbar{display:none}
+  .tile{flex:0 0 82vw;scroll-snap-align:center;background:var(--surface)}
+  .tile img{height:auto;aspect-ratio:4/3}
+  .tile::after{display:none}
+  .tile div{position:static;padding:16px 18px 20px}
+  .strip{gap:10px;padding:0 var(--m)}
+  .strip figure{flex-basis:86vw}
+  .gal-nav button{width:48px;height:48px}
+  /* perguntas: acordeão */
+  .qa{display:flex;flex-direction:column;gap:6px}
+  .qa details{background:var(--surface)}
+  .qa details summary{position:relative;display:flex;align-items:center;min-height:60px;padding:14px 52px 14px 18px;cursor:pointer}
+  .qa details summary b{margin:0;font-size:17px}
+  .qa details summary::after{content:"+";position:absolute;right:18px;font-size:24px;font-weight:300;color:var(--accent);transition:transform .3s var(--ease)}
+  .qa details[open] summary::after{transform:rotate(45deg)}
+  .qa details p{padding:0 18px 18px}
   .cta{height:auto;min-height:0}
   .cta img{position:static;height:62vw}
   .cta::after{display:none}
-  .cta-t{position:static;width:auto;padding:32px var(--m) 48px;background:var(--surface)}
-  footer{grid-template-columns:1fr 1fr}
+  .cta-t{position:static;width:auto;padding:28px var(--m) 40px;background:var(--surface)}
+  .cta-t .btn{width:100%}
+  footer{grid-template-columns:1fr 1fr;gap:24px 16px;padding-top:40px}
+  footer a{display:flex;align-items:center;min-height:44px}
+  /* botão fixo de agendamento, ao alcance do polegar */
+  .mcta{display:flex;position:fixed;z-index:20;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));height:54px;transform:translateY(160%);transition:transform .45s var(--ease)}
+  .mcta.show{transform:none}
 }
-@media (max-width:560px){
-  .hero h1{font-size:7vw}
-  .steps{grid-template-columns:1fr}
-  .tab{padding:18px}
-}
+@media (max-width:900px) and (prefers-reduced-motion:reduce){.mcta{transition:none}}
 </style>
 </head>
 <body>
@@ -251,6 +305,7 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
         <button type="button" aria-pressed="false" data-v="vista-1p">Primeira pessoa</button>
       </div>
     </div>
+    <p class="tab-desc" id="tabdesc" aria-live="polite">Paredes, mobiliário e circulação respondem como no imóvel construído. O personagem é a referência de escala para pé-direito, vãos e varandas.</p>
   </div>
 </section>
 
@@ -296,12 +351,12 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
 <section class="faq wrap" aria-labelledby="faq-h">
   <h2 id="faq-h" data-rv>Perguntas frequentes</h2>
   <div class="qa">
-    <div data-rv><b>Qual material é necessário?</b><p>O modelo 3D do projeto, em SketchUp ou exportado do ArchiCAD ou do Revit. Quando houver apenas plantas, avaliamos a modelagem como etapa adicional.</p></div>
-    <div data-rv style="--i:1"><b>O cliente precisa instalar algo?</b><p>Não. A experiência abre no navegador, por link. No stand, roda em um computador ligado a uma tela grande.</p></div>
-    <div data-rv style="--i:2"><b>Funciona em celulares?</b><p>Há controles de toque e uma versão otimizada, hoje em validação em aparelhos reais. A experiência completa roda em computadores e telas de stand.</p></div>
-    <div data-rv style="--i:3"><b>A experiência é fiel ao projeto?</b><p>A geometria vem do modelo do arquiteto, sem redesenho. Materiais e iluminação são conferidos contra as imagens oficiais do empreendimento.</p></div>
-    <div data-rv style="--i:4"><b>Atende empreendimentos inteiros?</b><p>Sim. O mesmo processo se aplica a áreas comuns, decorado e unidades tipo. Escopo e prazo são definidos a partir do modelo.</p></div>
-    <div data-rv style="--i:5"><b>Como é feito o orçamento?</b><p>Por projeto, conforme área, número de ambientes e nível de acabamento. Após analisar o material, enviamos escopo, cronograma e investimento.</p></div>
+    <details data-rv open><summary><b>Qual material é necessário?</b></summary><p>O modelo 3D do projeto, em SketchUp ou exportado do ArchiCAD ou do Revit. Quando houver apenas plantas, avaliamos a modelagem como etapa adicional.</p></details>
+    <details data-rv style="--i:1" open><summary><b>O cliente precisa instalar algo?</b></summary><p>Não. A experiência abre no navegador, por link. No stand, roda em um computador ligado a uma tela grande.</p></details>
+    <details data-rv style="--i:2" open><summary><b>Funciona em celulares?</b></summary><p>Há controles de toque e uma versão otimizada, hoje em validação em aparelhos reais. A experiência completa roda em computadores e telas de stand.</p></details>
+    <details data-rv style="--i:3" open><summary><b>A experiência é fiel ao projeto?</b></summary><p>A geometria vem do modelo do arquiteto, sem redesenho. Materiais e iluminação são conferidos contra as imagens oficiais do empreendimento.</p></details>
+    <details data-rv style="--i:4" open><summary><b>Atende empreendimentos inteiros?</b></summary><p>Sim. O mesmo processo se aplica a áreas comuns, decorado e unidades tipo. Escopo e prazo são definidos a partir do modelo.</p></details>
+    <details data-rv style="--i:5" open><summary><b>Como é feito o orçamento?</b></summary><p>Por projeto, conforme área, número de ambientes e nível de acabamento. Após analisar o material, enviamos escopo, cronograma e investimento.</p></details>
   </div>
 </section>
 
@@ -325,6 +380,7 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
   <small>Imagens e filme capturados na experiência interativa da Casa Vista. Projeto apresentado em caráter ilustrativo. © 2026</small>
 </footer>
 </div>
+<a class="btn mcta" id="mcta" href="https://wa.me/5511976791813?text=Ol%C3%A1%2C%20Matheus.%20Gostaria%20de%20agendar%20uma%20apresenta%C3%A7%C3%A3o%20da%20experi%C3%AAncia%203D%20interativa%20para%20um%20empreendimento." target="_blank" rel="noopener">Agendar apresentação</a>
 
 <script>
 (() => {
@@ -335,6 +391,20 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
   if (still) { v.removeAttribute('autoplay'); v.pause(); pb.textContent = 'Reproduzir filme'; pb.setAttribute('aria-pressed', 'true'); }
   pb.onclick = () => { if (v.paused) { v.play(); pb.textContent = 'Pausar filme'; pb.setAttribute('aria-pressed', 'false'); } else { v.pause(); pb.textContent = 'Reproduzir filme'; pb.setAttribute('aria-pressed', 'true'); } };
 
+  const mobile = matchMedia('(max-width: 900px)');
+
+  // perguntas: fechadas no celular (menos a primeira), sempre abertas no computador
+  const qs = [...document.querySelectorAll('.qa details')];
+  const setQa = () => qs.forEach((d, i) => { d.open = !mobile.matches || i === 0; });
+  setQa(); mobile.addEventListener('change', setQa);
+  qs.forEach((d) => d.querySelector('summary').addEventListener('click', (e) => { if (!mobile.matches) e.preventDefault(); }));
+
+  // botão fixo no celular: aparece depois da abertura, some no contato
+  const mcta = document.getElementById('mcta'); let pastHero = false, atCta = false;
+  const upd = () => mcta.classList.toggle('show', pastHero && !atCta);
+  new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe(document.querySelector('.hero .acts'));
+  new IntersectionObserver(([e]) => { atCta = e.isIntersecting; upd(); }, { threshold: .05 }).observe(document.querySelector('.cta-t'));
+
   // recursos
   const imgs = [...document.querySelectorAll('.tab-view img')], cam = document.getElementById('cam');
   const show = (name) => imgs.forEach((i) => i.classList.toggle('on', i.getAttribute('src') === P + name + '.webp'));
@@ -342,6 +412,8 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
   tabs.forEach((t) => t.onclick = () => {
     tabs.forEach((x) => x.setAttribute('aria-selected', x === t));
     show(t.dataset.img); cam.hidden = !t.dataset.cam;
+    document.getElementById('tabdesc').textContent = t.querySelector('span').textContent;
+    if (mobile.matches) document.querySelector('.tab-view').scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'nearest' });
     cam.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-pressed', k === 0));
   });
   cam.querySelectorAll('button').forEach((b) => b.onclick = () => {
