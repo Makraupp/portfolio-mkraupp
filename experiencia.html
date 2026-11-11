@@ -30,6 +30,7 @@ html{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-
 html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
 body{background:var(--bg);font-size:17px;line-height:1.6;font-weight:300;overflow-x:hidden}
 img,video{display:block;max-width:100%}
+img{height:auto}
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit;color:inherit}
 button{background:none;border:0;cursor:pointer}
@@ -198,7 +199,7 @@ button{background:none;border:0;cursor:pointer}
 .mk tr.us .val{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
 .src{margin-top:20px;color:var(--ink2);font-size:13px;max-width:90ch}
 .frac{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end;margin-top:64px;padding:48px;background:var(--surface);border:1px solid var(--line)}
-.frac p.serif{font-size:clamp(40px,4.6vw,80px);max-width:18ch;line-height:1}
+.frac p.serif{font-size:clamp(40px,4.6vw,80px);max-width:24ch;line-height:1}
 .frac p.serif em{font-style:italic;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.05em}
 .frac .side{display:grid;gap:16px;justify-items:start;max-width:340px}
 .frac .side p{color:var(--ink2)}
@@ -245,7 +246,7 @@ form small{color:var(--ink2);font-size:13px}
 
 /* rodapé */
 footer{border-top:1px solid var(--line);padding:56px var(--m) 28px;overflow:hidden}
-footer .big{font-family:var(--serif);font-size:clamp(80px,21vw,380px);line-height:.85;letter-spacing:-.04em;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+footer .big{font-family:var(--serif);font-size:clamp(96px,31.5vw,600px);line-height:.85;letter-spacing:-.04em;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
 footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 40px;margin-top:40px;color:var(--ink2);font-size:14px}
 footer .row a:hover{color:var(--ink)}
 
@@ -266,7 +267,8 @@ dialog .x{position:absolute;top:12px;right:12px;z-index:2;min-height:44px;paddin
   .hero-t{grid-template-columns:1fr;bottom:84px;gap:22px}
   .hero h1{font-size:clamp(56px,17vw,96px)}
   .hero .sub{font-size:16px;margin:18px 0 22px}
-  .hero .acts .b{flex:1;justify-content:center}
+  .hero .acts{flex-direction:column}
+  .hero .acts .b{justify-content:center}
   .ui{width:100%;padding:14px;display:grid;grid-template-columns:1fr auto;gap:10px 12px;align-items:center}
   .ui-h{grid-column:1/-1;padding-bottom:10px}
   .ui-room{font-size:26px;margin:0;min-height:0}
@@ -346,7 +348,7 @@ dialog .x{position:absolute;top:12px;right:12px;z-index:2;min-height:44px;paddin
       </div>
     </div>
     <aside class="ui rv" aria-label="Interface do passeio, sincronizada com o filme">
-      <div class="ui-h mono"><span>Passeio · Casa Vista</span><b id="forTag">gravado ao vivo</b></div>
+      <div class="ui-h mono"><span>Casa Vista</span><b id="forTag">gravado no passeio</b></div>
       <p class="ui-room" id="uiRoom">Deck e piscina</p>
       <div class="ui-mode mono"><span id="m3" class="on">3ª pessoa</span><span id="m1">1ª pessoa</span></div>
       <ul class="ui-stops mono" id="uiStops">
