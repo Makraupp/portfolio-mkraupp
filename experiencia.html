@@ -59,6 +59,7 @@ h2{font-size:var(--s4);font-weight:400;line-height:1.1;letter-spacing:-.025em}
 .hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}.hero h1 .ln span{display:block}
 .hero p{margin:20px 0 28px;max-width:52ch;color:var(--ink-soft);font-size:var(--s2)}
 .hero .acts{display:flex;gap:20px;flex-wrap:wrap}
+.hero p.for{margin:0 0 16px;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .hero-cap{display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-size:var(--s1);color:var(--ink-soft);text-align:right}
 .play{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:rgba(255,255,255,.12);font-size:var(--s1);transition:background-color .2s}
 .play:hover{background:rgba(255,255,255,.22)}
@@ -260,6 +261,7 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
   </div>
   <div class="hero-t">
     <div>
+      <p class="for" id="for" hidden></p>
       <h1><span class="ln"><span>O empreendimento,</span></span><span class="ln"><span>percorrido antes da obra.</span></span></h1>
       <p>Experiências 3D interativas para incorporadoras e construtoras. O comprador conduz um personagem pelo projeto, ambiente por ambiente, direto no navegador.</p>
       <div class="acts"><a class="btn" href="#contato">Agendar apresentação</a><a class="btn ghost" href="#recursos">Conhecer a experiência</a></div>
@@ -386,6 +388,18 @@ footer small{grid-column:1 / -1;margin-top:24px;font-size:13px;color:var(--muted
 <script>
 (() => {
   const P = 'assets/experiencia/';
+  // link por prospect: ?c=slug&n=Nome da empresa
+  const q = new URLSearchParams(location.search), c = (q.get('c') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40), n = (q.get('n') || '').trim().slice(0, 60);
+  if (n) {
+    const f = document.getElementById('for'); f.textContent = 'Preparado para ' + n; f.hidden = false;
+    const t = encodeURIComponent('Olá, Matheus. Vi a experiência 3D preparada para ' + n + '. Podemos conversar?');
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach((a) => { a.href = 'https://wa.me/5511976791813?text=' + t; });
+  }
+  if (c) {
+    const hit = () => window.goatcounter.count({ path: 'tour-aberto/' + c, title: n || c, event: true });
+    if (window.goatcounter && window.goatcounter.count) hit(); else addEventListener('load', () => window.goatcounter && window.goatcounter.count && hit());
+    document.querySelectorAll('[data-goatcounter-click]').forEach((a) => a.dataset.goatcounterClick += '/' + c);
+  }
   // filme
   const v = document.getElementById('film'), pb = document.getElementById('playbtn');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
