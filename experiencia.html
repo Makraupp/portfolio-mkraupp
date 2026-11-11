@@ -3,223 +3,310 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0E0D0B">
 <title>Projeto interativo · Matheus Kraupp</title>
-<meta name="description" content="Projeto interativo para lançamentos de alto padrão: o comprador anda pelo imóvel no navegador antes da obra, e o corretor manda o link no WhatsApp.">
+<meta name="description" content="Projeto interativo para lançamentos de alto padrão: o comprador anda pela unidade no navegador, em primeira e terceira pessoa, com a luz real do terreno.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kraupp.com.br/experiencia.html">
-<meta property="og:title" content="Entre na casa antes da obra">
-<meta property="og:description" content="Projeto interativo para lançamentos de alto padrão. Ande pela Casa Vista no navegador.">
+<meta property="og:title" content="Entre antes da obra">
+<meta property="og:description" content="Projeto interativo para lançamentos de alto padrão.">
 <meta property="og:image" content="https://kraupp.com.br/assets/experiencia/ext-deck.webp">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='45' font-family='Arial' font-size='38' font-weight='600' fill='%23C9A96E' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230E0D0B'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='40' fill='%23D8B985' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="preload" as="image" href="assets/experiencia/filme-poster.webp">
 <style>
 :root{
-  --bg:#000;--sheet:#0E0E0E;--tone:#1A1A1A;--tone2:#262626;
-  --ink:#F5F5F7;--soft:#C7C7CC;--accent:#C9A96E;--accent-hi:#D8BB85;--paper:#ECEAE6;--paper-ink:#111;
-  --t1:15px;--t2:17px;--t3:24px;--t4:clamp(30px,2.8vw,42px);--t5:clamp(44px,6.4vw,112px);
-  --g:12px;--m:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1);
+  --bg:#0E0D0B;--surface:#1A1814;--surface2:#221F1A;--line:#2A2620;--line2:#3A342B;
+  --ink:#EDE6DA;--ink2:#9C9384;--bronze:#B08D57;--bronze-hi:#D8B985;
+  --metal:linear-gradient(135deg,#8A6A3F 0%,#D8B985 48%,#A9844F 100%);
+  --serif:"Instrument Serif",Georgia,serif;--sans:Geist,system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,monospace;
+  --m:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-body{background:var(--bg);font-size:var(--t2);line-height:1.55;overflow-x:hidden}
-img,video,iframe{display:block;max-width:100%}
-img{height:auto}
-a{color:inherit}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-::selection{background:var(--accent);color:#000}
-h1,h2,h3{font-weight:500;letter-spacing:-.03em;line-height:1.04}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 28px;background:var(--accent);color:#000;font-weight:500;font-size:var(--t2);text-decoration:none;transition:transform .25s var(--ease),background-color .2s}
-.btn:hover{background:var(--accent-hi)}.btn:active{transform:scale(.97)}
-.tl{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;transition:color .2s}
-.tl:hover{color:var(--accent)}
+html{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--bg);font-size:17px;line-height:1.6;font-weight:300;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:1px solid var(--bronze-hi);outline-offset:4px}
+::selection{background:var(--bronze);color:#000}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:400}
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:.95}
 
-/* ---------- palco + leitura ---------- */
-.split{display:grid;grid-template-columns:minmax(0,45fr) minmax(0,55fr);gap:var(--g);padding:var(--g)}
-.read{min-width:0}
-.stage{position:sticky;top:var(--g);height:calc(100svh - 2*var(--g));overflow:hidden;background:var(--tone)}
-.stage .fr{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.6s var(--ease)}
-.stage .fr.on{opacity:1}
-.sbar{position:absolute;z-index:3;left:0;right:0;bottom:0;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 20px;background:var(--sheet);font-size:var(--t1)}
-.sbar b{font-weight:500}
-.sbar span{color:var(--soft)}
-.stage iframe{position:absolute;z-index:4;inset:0;width:100%;height:100%;border:0;background:#101214}
-.stage .exit{position:absolute;z-index:5;left:50%;top:16px;translate:-50% 0;min-height:44px;padding:0 16px;background:var(--ink);color:#000;font-size:var(--t1);font-weight:500;transition:transform .25s var(--ease)}
-.stage .exit:active{transform:scale(.96)}
+/* botões */
+.b{position:relative;display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 26px;font-size:15px;font-weight:400;letter-spacing:.01em;overflow:hidden;isolation:isolate;transition:color .4s var(--ease),transform .3s var(--ease)}
+.b:active{transform:scale(.97)}
+.b-metal{background:var(--metal);color:#16130E}
+.b-metal::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
+.b-metal:hover::after{transform:translateX(120%)}
+.b-line{border:1px solid var(--line2);color:var(--ink)}
+.b-line::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease)}
+.b-line:hover{color:var(--bg)}.b-line:hover::before{transform:scaleY(1)}
+.b .ar{transition:transform .4s var(--ease)}.b:hover .ar{transform:translateX(4px)}
+.play{width:18px;height:18px;display:grid;place-items:center;border:1px solid currentColor;border-radius:50%}
+.play::before{content:"";border-left:6px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px}
 
-/* hero: folha */
-.hero{min-height:calc(100svh - 2*var(--g));background:var(--sheet);display:grid;grid-template-rows:auto 1fr auto;padding:28px clamp(20px,3vw,48px) 40px;text-align:center}
-.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:var(--t1)}
-.top a{text-decoration:none;transition:color .2s}.top a:hover{color:var(--accent)}
-.top .l{justify-self:start}.top .r{justify-self:end}
-.mark{text-decoration:none;display:inline-flex;align-items:center;gap:12px;min-height:44px;font-weight:500;letter-spacing:.18em}
-.mark i{display:grid;place-items:center;width:34px;height:34px;background:var(--tone2);color:var(--accent);font-style:normal;letter-spacing:0;font-size:18px}
-.hero-c{align-self:center;display:grid;justify-items:center;gap:24px;padding-top:4vh}
-.hero h1{font-size:clamp(44px,5vw,80px);max-width:15ch}
-.hero p{max-width:40ch;color:var(--soft)}
-.hero .acts{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:center}
-.hero-n{font-size:var(--t1);color:var(--soft)}
+/* HUD fixo */
+.hud{position:fixed;z-index:40;inset:0 0 auto 0;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px var(--m);transition:background-color .5s,backdrop-filter .5s,padding .5s var(--ease)}
+.hud.solid{background:rgba(14,13,11,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:14px;padding-bottom:14px}
+.mark{display:flex;align-items:center;gap:12px;min-height:44px;font-family:var(--mono);font-size:13px;letter-spacing:.24em}
+.mark i{font-family:var(--serif);font-style:normal;font-size:26px;letter-spacing:0;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hud nav{display:flex;gap:32px}
+.hud nav a{position:relative;color:var(--ink2);transition:color .3s}
+.hud nav a:hover{color:var(--ink)}
+.hud nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--bronze-hi);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.hud nav a:hover::after{transform:scaleX(1)}
+.hud .b{min-height:44px;padding:0 20px;border-color:var(--bronze)}
+.corner{position:fixed;z-index:39;bottom:20px;display:flex;align-items:center;gap:10px;color:var(--ink2);transition:opacity .4s}
+.corner.l{left:var(--m)}.corner.r{right:var(--m)}
+.corner .dot{width:6px;height:6px;border-radius:50%;background:var(--bronze-hi);box-shadow:0 0 0 4px rgba(216,185,133,.15);animation:pulse 2.4s infinite}
+.corner.r{min-height:44px;padding:0 16px;color:var(--ink);background:rgba(14,13,11,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);transition:color .3s}
+.corner.l.off{opacity:0;pointer-events:none}.corner.r:hover{color:var(--bronze-hi)}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(216,185,133,0)}}
 
-/* blocos da leitura */
-.blk{padding:clamp(120px,16vh,200px) clamp(20px,3vw,48px) 0}
-.blk h2{font-size:var(--t4);max-width:18ch}
+/* hero */
+.hero{position:relative;height:100svh;min-height:640px;overflow:hidden}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,13,11,.78) 0%,rgba(14,13,11,.35) 38%,rgba(14,13,11,0) 62%),linear-gradient(180deg,rgba(14,13,11,.55) 0%,rgba(14,13,11,0) 28%,rgba(14,13,11,0) 45%,rgba(14,13,11,.9) 100%)}
+.hero-t{position:absolute;left:var(--m);right:var(--m);bottom:clamp(72px,11vh,120px);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:40px}
+.hero h1{font-size:clamp(64px,11.5vw,200px)}
+.hero h1 em{font-style:italic;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}.hero h1 .ln>span{display:block}
+.hero .sub{max-width:46ch;margin:26px 0 32px;color:var(--ink);font-size:18px}
+.hero .acts{display:flex;flex-wrap:wrap;gap:14px}
 
-.intro .col{max-width:340px;margin-left:clamp(0px,6vw,96px);display:grid;gap:20px;font-size:var(--t2)}
-.intro .col p:first-child{font-weight:500;color:var(--ink);font-size:var(--t3);line-height:1.35}
-.intro .col p{color:var(--soft)}
-.intro .col p:first-child{color:var(--ink)}
+/* interface do passeio sobre o filme */
+.ui{width:min(340px,30vw);background:rgba(14,13,11,.62);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(237,230,218,.12);padding:18px}
+.ui-h{display:flex;justify-content:space-between;align-items:center;color:var(--ink2);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.ui-h b{color:var(--bronze-hi);font-weight:400}
+.ui-room{font-family:var(--serif);font-size:34px;line-height:1;margin:16px 0 14px;min-height:34px}
+.ui-mode{display:flex;gap:6px;margin-bottom:16px}
+.ui-mode span{flex:1;text-align:center;padding:8px 0;border:1px solid var(--line2);color:var(--ink2);transition:all .4s var(--ease)}
+.ui-mode span.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ui-stops{display:grid;gap:2px;margin-bottom:16px}
+.ui-stops li{list-style:none;display:flex;justify-content:space-between;padding:6px 0;color:var(--ink2);transition:color .4s}
+.ui-stops li.on{color:var(--ink)}
+.ui-stops li.on::after{content:"●";color:var(--bronze-hi);font-size:9px}
+.ui-bar{height:2px;background:var(--line);position:relative}
+.ui-bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--metal)}
+.ui-t{display:flex;justify-content:space-between;color:var(--ink2);margin-top:10px}
 
-.show{display:grid;gap:28px}
-.plate{aspect-ratio:1;overflow:hidden;background:var(--tone);position:relative}
-.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s var(--ease),transform 6s linear}
-.plate img.on{opacity:1}
-.plate:hover img.on{transform:scale(1.04)}
-.tabs{display:flex;gap:24px;flex-wrap:wrap;font-size:var(--t2)}
-.tabs button{color:var(--soft);min-height:44px;transition:color .2s}
-.tabs button[aria-selected="true"]{color:var(--accent);font-weight:500}
-.tabs button:hover{color:var(--ink)}
-.show p{max-width:42ch;color:var(--soft)}
-.cells{display:grid;grid-template-columns:1fr 1fr;gap:var(--g)}
-.cells a,.cells button{display:flex;align-items:center;justify-content:center;min-height:72px;padding:0 16px;text-align:center;font-weight:500;text-decoration:none;transition:transform .25s var(--ease),background-color .2s}
-.cells .a1{background:var(--accent);color:#000}.cells .a1:hover{background:var(--accent-hi)}
-.cells .a2{background:var(--tone2);color:var(--ink)}.cells .a2:hover{background:#333}
-.cells a:active,.cells button:active{transform:scale(.97)}
+/* manifesto */
+.mani{padding:clamp(140px,22vh,260px) var(--m);max-width:1400px}
+.mani p{font-family:var(--serif);font-size:clamp(36px,4.6vw,76px);line-height:1.08;letter-spacing:-.015em}
+.mani .w{opacity:.16;transition:opacity .2s}
+.mani .w.on{opacity:1}
+.mani .mono{display:block;color:var(--bronze-hi);margin-bottom:28px}
 
-.menu{display:grid;gap:36px}
-.menu table{width:100%;border-collapse:collapse}
-.menu caption{text-align:left;font-weight:600;font-size:var(--t3);padding-bottom:14px}
-.menu td{vertical-align:bottom;padding:9px 0}
-.menu td:first-child{width:100%}
-.menu .nm{display:flex;align-items:flex-end;gap:10px}
-.menu .nm::after{content:"";flex:1;border-bottom:4px dotted var(--tone2);margin-bottom:6px;min-width:24px}
-.menu .vl{white-space:nowrap;color:var(--accent);font-variant-numeric:tabular-nums;padding-left:10px}
-.menu .ds{display:block;font-size:var(--t1);color:var(--soft);max-width:34ch;margin-top:2px}
+/* capítulos */
+.tour{position:relative;height:100svh;overflow:hidden;background:#000}
+.ch-img{position:absolute;inset:0;opacity:0}
+.ch-img.on{opacity:1}
+.ch-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.12)}
+.tour .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,13,11,.86) 0%,rgba(14,13,11,.35) 45%,rgba(14,13,11,0) 70%)}
+.ch-t{position:absolute;left:var(--m);top:50%;transform:translateY(-50%);width:min(560px,80vw);height:60vh}
+.ch{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);opacity:0}
+.ch .mono{color:var(--bronze-hi)}
+.ch h2{font-size:clamp(48px,6.4vw,112px);margin:18px 0 22px}
+.ch p{max-width:40ch;color:var(--ink);font-size:18px}
+.ch-nav{position:absolute;right:var(--m);top:50%;transform:translateY(-50%);display:grid;gap:14px;text-align:right}
+.ch-nav span{text-shadow:0 1px 12px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:flex-end;gap:12px;color:var(--ink2);transition:color .4s}
+.ch-nav span::after{content:"";width:22px;height:1px;background:currentColor;transition:width .5s var(--ease)}
+.ch-nav span.on{color:var(--ink)}.ch-nav span.on::after{width:56px;background:var(--bronze-hi)}
+.ch-prog{position:absolute;left:var(--m);right:var(--m);bottom:36px;height:1px;background:rgba(237,230,218,.18)}
+.ch-prog i{position:absolute;inset:0 auto 0 0;width:0;background:var(--metal)}
 
-.proc{display:grid;gap:36px;padding-bottom:clamp(120px,16vh,200px)}
-.proc>p{max-width:34ch;color:var(--soft)}
-.slip{background:var(--paper);color:var(--paper-ink);padding:32px 28px 48px;max-width:480px;font-variant-numeric:tabular-nums;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),95% 100%,90% calc(100% - 14px),85% 100%,80% calc(100% - 14px),75% 100%,70% calc(100% - 14px),65% 100%,60% calc(100% - 14px),55% 100%,50% calc(100% - 14px),45% 100%,40% calc(100% - 14px),35% 100%,30% calc(100% - 14px),25% 100%,20% calc(100% - 14px),15% 100%,10% calc(100% - 14px),5% 100%,0 calc(100% - 14px))}
-.slip table{width:100%;border-collapse:collapse;font-size:var(--t1)}
-.slip th{text-align:left;font-weight:600;padding:28px 0 6px}
-.slip tr:first-child th{padding-top:0}
-.slip td{padding:7px 0;vertical-align:bottom}
-.slip td:first-child{width:100%}
-.slip .nm{display:flex;align-items:flex-end;gap:8px}
-.slip .nm::after{content:"";flex:1;border-bottom:4px dotted #BDB6A8;margin-bottom:5px;min-width:20px}
-.slip td:last-child{white-space:nowrap;padding-left:8px}
-.slip .end td{background:var(--paper-ink);color:var(--paper);padding:13px 12px;font-weight:500}
-.slip .end td:first-child{padding-left:12px}
+/* seções */
+.sec{padding:clamp(120px,18vh,220px) var(--m) 0}
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:40px;align-items:end;margin-bottom:56px}
+.head h2{font-size:clamp(48px,6vw,104px)}
+.head p{color:var(--ink2)}
+.head .mono{display:block;color:var(--bronze-hi);margin-bottom:22px}
 
-/* ---------- onde vende: faixa cheia ---------- */
-.uses{position:relative;min-height:100svh;display:grid;align-items:center;justify-items:end;padding:clamp(64px,10vh,120px) var(--m)}
-.uses>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.sheet{position:relative;width:min(640px,100%);background:var(--paper);color:var(--paper-ink);padding:64px clamp(24px,4vw,64px);text-align:center;clip-path:polygon(0.000% 0,3.125% 12px,6.250% 0,9.375% 12px,12.500% 0,15.625% 12px,18.750% 0,21.875% 12px,25.000% 0,28.125% 12px,31.250% 0,34.375% 12px,37.500% 0,40.625% 12px,43.750% 0,46.875% 12px,50.000% 0,53.125% 12px,56.250% 0,59.375% 12px,62.500% 0,65.625% 12px,68.750% 0,71.875% 12px,75.000% 0,78.125% 12px,81.250% 0,84.375% 12px,87.500% 0,90.625% 12px,93.750% 0,96.875% 12px,100.000% 0,100.000% 100%,96.875% calc(100% - 12px),93.750% 100%,90.625% calc(100% - 12px),87.500% 100%,84.375% calc(100% - 12px),81.250% 100%,78.125% calc(100% - 12px),75.000% 100%,71.875% calc(100% - 12px),68.750% 100%,65.625% calc(100% - 12px),62.500% 100%,59.375% calc(100% - 12px),56.250% 100%,53.125% calc(100% - 12px),50.000% 100%,46.875% calc(100% - 12px),43.750% 100%,40.625% calc(100% - 12px),37.500% 100%,34.375% calc(100% - 12px),31.250% 100%,28.125% calc(100% - 12px),25.000% 100%,21.875% calc(100% - 12px),18.750% 100%,15.625% calc(100% - 12px),12.500% 100%,9.375% calc(100% - 12px),6.250% 100%,3.125% calc(100% - 12px),0.000% 100%)}
-.sheet h2{font-size:var(--t4)}
-.sheet>p{font-size:var(--t1);color:#4A4A4A;margin-top:10px}
-.sheet h3{font-size:var(--t3);font-weight:600;letter-spacing:-.01em;margin:48px 0 16px}
-.sheet ul{list-style:none;display:grid;gap:16px;max-width:440px;margin:0 auto;text-align:left}
-.sheet li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;font-size:var(--t2)}
-.sheet li span{color:#4A4A4A}
-.sheet li small{grid-column:1/-1;font-size:var(--t1);color:#4A4A4A}
-.sheet .note{margin-top:44px;font-size:var(--t1);color:#4A4A4A}
+/* recursos: bento */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(260px,auto);gap:12px}
+.t{position:relative;background:var(--surface);border:1px solid var(--line);overflow:hidden;padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;transition:border-color .5s}
+.t:hover{border-color:var(--line2)}
+.t h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,2.4vw,40px);line-height:1;letter-spacing:-.01em;margin:8px 0 10px}
+.t p{color:var(--ink2);max-width:42ch;font-size:16px}
+.t .mono{color:var(--ink2)}
+.t-a{grid-column:span 8;grid-row:span 2;padding:0;min-height:560px}
+.t-b{grid-column:span 4;grid-row:span 2;padding:0}
+.t-c,.t-d,.t-e{grid-column:span 4}
+.t-img{position:absolute;inset:0}
+.t-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.t:hover .t-img img{transform:scale(1.04)}
+.t-cap{position:absolute;left:0;right:0;bottom:0;padding:28px;background:linear-gradient(0deg,rgba(14,13,11,.94) 20%,rgba(14,13,11,0));pointer-events:none}
+.cmp{position:absolute;inset:0;cursor:ew-resize;touch-action:pan-y;--x:50%}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cmp .top{clip-path:inset(0 0 0 var(--x))}
+.cmp .hand{position:absolute;top:0;bottom:0;left:var(--x);width:1px;background:var(--bronze-hi)}
+.cmp .hand::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--metal);color:#16130E;font-size:18px}
+.cmp .lb{position:absolute;top:24px;padding:6px 10px;background:rgba(14,13,11,.7)}
+.cmp .lb.a{left:24px}.cmp .lb.b{right:24px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{border:1px solid var(--line2);padding:7px 11px;color:var(--ink2);transition:all .3s}
+.chips span:hover{border-color:var(--bronze);color:var(--ink)}
+.note{background:var(--surface2);border:1px solid var(--line2);padding:14px 16px;display:grid;gap:4px}
+.note b{font-weight:400;color:var(--ink)}
+.note .mono{color:var(--bronze-hi)}
+.spec{display:grid;gap:8px}
+.spec div{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px}
+.spec span:last-child{color:var(--ink)}
 
-/* ---------- investimento: dois campos ---------- */
-.price{display:grid;grid-template-columns:5fr 7fr;min-height:90svh}
-.pf{display:grid;grid-template-rows:auto auto 1fr auto;gap:20px;padding:40px var(--m) 48px}
-.pf h2{font-size:var(--t5)}
-.pf .who{font-size:var(--t3);line-height:1.3;max-width:26ch}
-.pf .inc{max-width:46ch;align-self:start}
-.pf .bot{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px}
-.pf .val{font-size:var(--t5);font-weight:500;letter-spacing:-.04em;line-height:.95;font-variant-numeric:tabular-nums}
-.pf .val small{font-size:var(--t2);letter-spacing:0;font-weight:400;margin-left:8px}
-.p1{background:var(--tone);color:var(--ink)}
-.p1 .who,.p1 .inc{color:var(--soft)}
-.p2{background:var(--accent);color:#000}
-.p2 .btn{background:#000;color:var(--ink)}.p2 .btn:hover{background:#222}
-.p1 .btn{background:var(--ink);color:#000}.p1 .btn:hover{background:#fff}
+/* números */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(120px,18vh,220px)}
+.nums div{padding:48px var(--m) 44px;border-right:1px solid var(--line)}
+.nums div:last-child{border-right:0}
+.nums b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(64px,8vw,136px);line-height:.9;letter-spacing:-.03em;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nums span{display:block;margin-top:14px;color:var(--ink2)}
+.proof{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:40px;align-items:end;padding:72px var(--m) 0}
+.proof blockquote{font-family:var(--serif);font-size:clamp(28px,3vw,48px);line-height:1.12;max-width:28ch}
+.proof a{color:var(--ink2);border-bottom:1px solid var(--line2)}
+.proof a:hover{color:var(--ink)}
 
-/* ---------- perguntas ---------- */
-.faq{display:grid;grid-template-columns:3fr 9fr;gap:40px;padding:clamp(120px,16vh,200px) var(--m)}
-.faq h2{font-size:var(--t4)}
-.faq .txt{columns:2;column-gap:56px}
-.faq .txt p{break-inside:avoid;margin-bottom:20px;color:var(--soft);max-width:38ch}
-.faq .txt b{font-weight:500;color:var(--ink)}
+/* onde vende: horizontal */
+.hz{position:relative;overflow:hidden;padding-top:clamp(120px,18vh,220px)}
+.hz .head{padding:0 var(--m)}
+.track{display:flex;gap:12px;padding:0 var(--m);width:max-content}
+.card{position:relative;height:min(62svh,600px);aspect-ratio:3/4;overflow:hidden;background:var(--surface);flex:none}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.card:hover img{transform:scale(1.05)}
+.card div{position:absolute;inset:auto 0 0 0;padding:26px;background:linear-gradient(0deg,rgba(14,13,11,.95) 10%,rgba(14,13,11,0))}
+.card .mono{color:var(--bronze-hi)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:36px;line-height:1;margin:10px 0 8px}
+.card p{color:var(--ink2);font-size:15px}
 
-/* ---------- contato ---------- */
-.contact{position:relative;min-height:100svh;background:var(--paper);color:var(--paper-ink);display:grid;grid-template-rows:auto 1fr auto auto;gap:28px;padding:40px var(--m) 32px}
-.contact .say{font-size:var(--t3);line-height:1.35;max-width:30ch}
-.contact .say b{font-weight:500}
-.contact .acts{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
-.contact .btn{background:#000;color:var(--paper)}.contact .btn:hover{background:#222}
-.mail{align-self:end;display:block;font-size:clamp(44px,11.6vw,200px);font-weight:400;letter-spacing:-.05em;line-height:.95;text-decoration:none;transition:color .25s}
-.mail:hover{color:#8B6F3E}
-.contact .corners{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px 32px;font-size:var(--t1)}
-.contact .corners a{text-decoration:none}.contact .corners a:hover{text-decoration:underline}
+/* investimento */
+.mk{width:100%;border-collapse:collapse;font-size:16px}
+.mk th{text-align:left;font-weight:400;color:var(--ink2);padding:0 16px 16px 0;border-bottom:1px solid var(--line2)}
+.mk td{padding:22px 16px 22px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.mk td:first-child{width:34%}
+.mk .cat{display:block;font-size:18px;color:var(--ink);font-weight:400}
+.mk .who{display:flex;align-items:center;gap:8px;margin-top:6px;color:var(--ink2)}
+.red{display:inline-block;height:12px;background:var(--line2);border-radius:2px;filter:blur(.4px)}
+.mk .val{font-family:var(--serif);font-size:clamp(24px,2.2vw,34px);line-height:1;white-space:nowrap}
+.mk .ok{color:var(--bronze-hi)}.mk .no{color:var(--ink2)}
+.mk .best{color:var(--ink2);font-size:15px}
+.mk tr.us td{border-bottom:0;background:var(--surface);padding-top:28px;padding-bottom:28px}
+.mk tr.us td:first-child{padding-left:24px;box-shadow:inset 2px 0 0 var(--bronze-hi)}
+.mk tr.us .val{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.src{margin-top:20px;color:var(--ink2);font-size:13px;max-width:90ch}
+.frac{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end;margin-top:64px;padding:48px;background:var(--surface);border:1px solid var(--line)}
+.frac p.serif{font-size:clamp(40px,4.6vw,80px);max-width:18ch;line-height:1}
+.frac p.serif em{font-style:italic;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.05em}
+.frac .side{display:grid;gap:16px;justify-items:start;max-width:340px}
+.frac .side p{color:var(--ink2)}
 
-/* ---------- rodapé ---------- */
-.foot{display:grid;grid-template-columns:1fr 1fr;min-height:100svh}
-.foot .ph{overflow:hidden}
-.foot .ph img{width:100%;height:100%;object-fit:cover;object-position:30% 50%;transform:scale(1.08);transition:transform 1.2s var(--ease)}
-.foot .ph.in img{transform:scale(1)}
-.foot .mn{background:var(--sheet);padding:56px var(--m) 32px;display:grid;grid-template-rows:auto 1fr auto auto;gap:48px}
-.foot nav{display:grid;gap:18px;align-content:start}
-.foot nav a{font-size:var(--t4);font-weight:500;letter-spacing:-.02em;text-decoration:none;transition:transform .3s var(--ease),color .2s;width:fit-content}
-.foot nav:hover a{color:var(--soft)}
-.foot nav a:hover{color:var(--accent);transform:translateX(12px)}
-.foot .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:var(--t1);color:var(--soft)}
-.foot .two b{display:block;color:var(--ink);font-weight:500;margin-bottom:6px}
-.foot .two a{display:block;text-decoration:none;min-height:28px}.foot .two a:hover{color:var(--accent)}
-.foot small{font-size:var(--t1);color:var(--soft)}
+/* processo */
+.line15{position:relative;margin-top:24px}
+.line15 .rail{height:1px;background:var(--line2);position:relative}
+.line15 .rail i{position:absolute;inset:0 auto 0 0;width:0;background:var(--metal)}
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:-5px}
+.st{padding-top:22px;position:relative}
+.st::before{content:"";position:absolute;top:0;left:0;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--bronze-hi)}
+.st .mono{color:var(--bronze-hi)}
+.st b{display:block;font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.05;margin:10px 0 8px}
+.st p{color:var(--ink2);font-size:15px}
 
+/* perguntas */
+.faq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:56px}
+.faq h2{font-size:clamp(48px,6vw,104px)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 0;cursor:pointer;font-size:19px;font-weight:400;transition:color .3s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--bronze-hi)}
+.faq summary::after{content:"+";font-family:var(--mono);font-size:20px;color:var(--bronze-hi);transition:transform .4s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 48px 26px 0;color:var(--ink2);max-width:60ch}
+.lab{display:block;color:var(--bronze-hi);margin-bottom:22px}
 
-/* entradas */
-.js [data-rv]>*{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.js [data-rv].in>*{opacity:1;transform:none}
-.js [data-rv].in>*:nth-child(2){transition-delay:.08s}.js [data-rv].in>*:nth-child(3){transition-delay:.16s}.js [data-rv].in>*:nth-child(4){transition-delay:.24s}.js [data-rv].in>*:nth-child(5){transition-delay:.32s}.js [data-rv].in>*:nth-child(n+6){transition-delay:.4s}
+/* contato */
+.cta{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);padding:clamp(120px,18vh,220px) var(--m)}
+.cta h2{font-size:clamp(56px,7vw,128px)}
+.cta h2 em{font-style:italic;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.05em}
+.cta .lead{color:var(--ink2);margin-top:28px;max-width:40ch}
+.cta .alt{margin-top:40px;display:grid;gap:6px;justify-items:start}
+.cta .alt a{font-family:var(--serif);font-size:clamp(28px,2.6vw,40px);border-bottom:1px solid var(--line2);transition:color .3s,border-color .3s}
+.cta .alt a:hover{color:var(--bronze-hi);border-color:var(--bronze)}
+form{background:var(--surface);border:1px solid var(--line);padding:clamp(24px,3vw,44px);display:grid;gap:22px;align-content:start}
+form .mono{color:var(--bronze-hi)}
+label{display:grid;gap:8px;color:var(--ink2);font-size:14px}
+input,select{background:transparent;border:0;border-bottom:1px solid var(--line2);padding:10px 0;font-size:18px;color:var(--ink);border-radius:0;transition:border-color .3s}
+input:focus,select:focus{outline:0;border-color:var(--bronze-hi)}
+select option{background:var(--surface);color:var(--ink)}
+form .b{justify-content:center;width:100%;margin-top:8px}
+form small{color:var(--ink2);font-size:13px}
+
+/* rodapé */
+footer{border-top:1px solid var(--line);padding:56px var(--m) 28px;overflow:hidden}
+footer .big{font-family:var(--serif);font-size:clamp(80px,21vw,380px);line-height:.85;letter-spacing:-.04em;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 40px;margin-top:40px;color:var(--ink2);font-size:14px}
+footer .row a:hover{color:var(--ink)}
+
+/* modal do filme */
+dialog{border:0;padding:0;background:#000;width:min(1280px,94vw);max-height:92vh;color:var(--ink);margin:auto}
+dialog::backdrop{background:rgba(14,13,11,.9);backdrop-filter:blur(6px)}
+dialog video{width:100%;height:auto;max-height:86vh}
+dialog .x{position:absolute;top:12px;right:12px;z-index:2;min-height:44px;padding:0 16px;background:rgba(14,13,11,.75);border:1px solid var(--line2)}
+
+/* entradas (sem script, tudo visível) */
+.js .rv{opacity:0;transform:translateY(28px)}
 
 @media (max-width:900px){
-  .split{grid-template-columns:1fr;padding:0;gap:0;position:relative}
-  .top{position:absolute;z-index:6;top:0;left:0;right:0;padding:10px 20px;background:var(--sheet);text-align:left}
-  .stage{margin-top:64px}
-  .stage{order:-1;position:relative;top:0;height:56svh}
-  .sbar{min-height:44px;padding:0 14px;top:0;bottom:auto}
-  .hero{min-height:auto;padding:20px 20px 56px;gap:40px}
-  .hero-c{padding-top:0}
-  .hero h1{font-size:clamp(44px,11vw,56px)}
-  .hero .acts{flex-direction:column;width:100%}.hero .acts .btn{width:100%}
-  .blk{padding:96px 20px 0}
-  .intro .col{margin-left:0;max-width:86%}
-  .intro .col p:first-child{font-size:var(--t2)}
-  .tabs{gap:4px 20px}
-  .cells{grid-template-columns:1fr}.cells a,.cells button{min-height:60px}
-  .proc{padding-bottom:96px}
-  .slip{padding:28px 20px 44px}
-  .uses{min-height:auto;padding:56px 10px;justify-items:center}
-  .sheet{padding:56px 24px}
-  .price{grid-template-columns:1fr}
-  .p2{order:-1}
-  .pf{min-height:70svh;padding:28px 20px}
-  .pf h2,.pf .val{font-size:clamp(44px,12vw,72px)}
-  .pf .bot{flex-direction:column;align-items:stretch}.pf .btn{width:100%}
-  .faq{grid-template-columns:1fr;gap:24px;padding:96px 20px}
-  .faq .txt{columns:1}
-  .contact{min-height:86svh;padding:28px 20px 96px}
-  .mail{font-size:clamp(40px,12.4vw,80px)}
-  .contact .corners{flex-direction:column}
-  .foot{grid-template-columns:1fr}
-  .foot .ph{height:50svh}
-  .foot .mn{padding:40px 20px 96px;gap:36px}
+  .hud nav{display:none}
+  .hud .b .lg{display:none}
+  .corner.l{display:none}
+  .corner.r{bottom:calc(16px + env(safe-area-inset-bottom));background:rgba(14,13,11,.7);padding:0 14px;backdrop-filter:blur(10px)}
+  .hero-t{grid-template-columns:1fr;bottom:84px;gap:22px}
+  .hero h1{font-size:clamp(56px,17vw,96px)}
+  .hero .sub{font-size:16px;margin:18px 0 22px}
+  .hero .acts .b{flex:1;justify-content:center}
+  .ui{width:100%;padding:14px;display:grid;grid-template-columns:1fr auto;gap:10px 12px;align-items:center}
+  .ui-h{grid-column:1/-1;padding-bottom:10px}
+  .ui-room{font-size:26px;margin:0;min-height:0}
+  .ui-mode{margin:0}.ui-mode span{padding:6px 10px}
+  .ui-stops,.ui-t{display:none}
+  .ui-bar{grid-column:1/-1}
+  .tour{height:auto;overflow:visible;padding:96px var(--m) 0;background:var(--bg)}
+  .tour .ch-img,.tour .scrim,.ch-nav,.ch-prog{display:none}
+  .ch-t{position:static;transform:none;width:auto;height:auto}
+  .ch{position:relative;top:auto;transform:none;opacity:1;padding:0 0 56px}
+  .ch figure{margin:0 calc(-1*var(--m)) 22px}
+  .ch figure img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .ch h2{font-size:clamp(44px,12vw,64px);margin:12px 0 14px}
+  .head{grid-template-columns:1fr;gap:18px;margin-bottom:36px}
+  .bento{grid-template-columns:1fr;grid-auto-rows:auto}
+  .t-a,.t-b,.t-c,.t-d,.t-e{grid-column:auto;grid-row:auto}
+  .t-a{min-height:0;aspect-ratio:4/5}.t-b{aspect-ratio:4/5}
+  .nums{grid-template-columns:1fr 1fr}
+  .nums div{padding:32px 20px;border-bottom:1px solid var(--line)}
+  .nums div:nth-child(2n){border-right:0}
+  .proof{grid-template-columns:1fr}
+  .hz .track{overflow-x:auto;scroll-snap-type:x mandatory;width:auto;padding-bottom:8px}
+  .card{width:78vw;height:auto;scroll-snap-align:start}
+  .mk thead{display:none}
+  .mk,.mk tbody,.mk tr,.mk td{display:block;width:100%!important}
+  .mk tr{border-bottom:1px solid var(--line);padding:20px 0}
+  .mk td{border:0;padding:4px 0}
+  .mk td[data-h]::before{content:attr(data-h);display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-top:8px}
+  .mk tr.us{padding:20px;background:var(--surface);box-shadow:inset 2px 0 0 var(--bronze-hi)}
+  .mk tr.us td{background:none;padding:4px 0}.mk tr.us td:first-child{padding-left:0;box-shadow:none}
+  .frac{grid-template-columns:1fr;padding:28px}
+  .steps{grid-template-columns:1fr 1fr;gap:28px 16px}
+  .line15 .rail{display:none}
+  .faq,.cta{grid-template-columns:1fr;gap:32px}
 }
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .stage .fr,.plate img{transition:opacity .3s}
-  .js [data-rv]>*{transform:none!important;transition:opacity .3s!important}
-  .foot .ph img{transform:none!important}
-  .plate:hover img.on{transform:none}
+  .js .rv{opacity:1;transform:none}
+  .mani .w{opacity:1}
+  .b-metal::after{display:none}
+  .corner .dot{animation:none}
 }
 </style>
 <script data-goatcounter="https://kraupp.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -227,283 +314,368 @@ h1,h2,h3{font-weight:500;letter-spacing:-.03em;line-height:1.04}
 <body>
 <script>document.documentElement.classList.add('js')</script>
 
-<div class="split">
-  <main class="read">
+<header class="hud" id="hud">
+  <a class="mark" href="index.html" aria-label="Matheus Kraupp, portfólio"><i>M</i>KRAUPP</a>
+  <nav aria-label="Seções">
+    <a href="#visita">A visita</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#investimento">Investimento</a>
+    <a href="#perguntas">Perguntas</a>
+  </nav>
+  <a class="b b-line" href="#contato" data-goatcounter-click="topo-agendar"><span class="lg">Agendar apresentação</span><span class="ar">→</span></a>
+</header>
 
-    <header class="hero" data-stage="filme" data-stop="Rua">
-      <div class="top">
-        <a class="l" href="index.html">Portfólio</a>
-        <a class="mark" href="index.html" aria-label="Matheus Kraupp, página inicial"><i>M</i>KRAUPP</a>
-        <a class="r" href="#contato">Agendar</a>
-      </div>
-      <div class="hero-c" data-rv>
-        <h1>Entre na casa antes da obra.</h1>
-        <p>Projeto interativo para lançamentos de alto padrão. O comprador anda pelo imóvel no navegador, ambiente por ambiente, e o corretor manda o link no WhatsApp.</p>
-        <div class="acts">
-          <a class="btn" data-enter data-goatcounter-click="entrar-casa" href="https://tour.kraupp.com.br/" target="_blank" rel="noopener">Entrar na Casa Vista</a>
-          <a class="tl" href="#contato">Agendar apresentação</a>
-        </div>
-      </div>
-      <p class="hero-n">Sem aplicativo · computador, TV do stand e celular</p>
-    </header>
+<div class="corner l mono" aria-hidden="true"><span class="dot"></span><span id="cornerL">Casa Vista · projeto interativo</span></div>
+<button class="corner r mono" type="button" data-film data-goatcounter-click="ver-filme"><span class="play"></span>Ver o filme</button>
 
-    <section class="blk intro" data-stage="int-estar" data-stop="Estar e jantar" aria-label="Por que um projeto interativo">
-      <div class="col" data-rv>
-        <p>Quem compra um apartamento de R$ 7 milhões na planta decide por uma sensação: como é estar lá dentro.</p>
-        <p>A planta mostra medidas. O render mostra o ângulo que o arquiteto escolheu. Nenhum dos dois deixa o cliente parar no meio do estar e virar para a varanda.</p>
-        <p>O projeto interativo deixa. Ele chega pela rua, atravessa o deck, sobe a escada e escolhe para onde olhar, no próprio ritmo, do sofá de casa ou da tela do stand.</p>
-        <p>Para o corretor, é um motivo novo para voltar a falar com a base: um link que o cliente abre, entende e repassa para a família. <a class="tl" href="#casa">Veja na Casa Vista.</a></p>
+<main>
+<section class="hero" aria-label="Abertura">
+  <img class="poster" src="assets/experiencia/filme-poster.webp" alt="" width="1600" height="900">
+  <video id="film" muted loop playsinline autoplay preload="auto" poster="assets/experiencia/filme-poster.webp" aria-label="Filme da Casa Vista gravado dentro do projeto interativo">
+    <source src="assets/experiencia/filme-casa-vista-960.mp4" type="video/mp4" media="(max-width: 900px)">
+    <source src="assets/experiencia/filme-casa-vista.mp4" type="video/mp4">
+  </video>
+  <div class="scrim"></div>
+  <div class="hero-t">
+    <div>
+      <h1 class="serif"><span class="ln"><span>Entre antes</span></span><span class="ln"><span><em>da obra.</em></span></span></h1>
+      <p class="sub rv">Projeto interativo para lançamentos de alto padrão. O comprador anda pela unidade no navegador, em primeira e terceira pessoa, com a luz real do terreno.</p>
+      <div class="acts rv">
+        <a class="b b-metal" href="#contato" data-goatcounter-click="hero-agendar">Agendar apresentação <span class="ar">→</span></a>
+        <button class="b b-line" type="button" data-film data-goatcounter-click="ver-filme"><span class="play"></span>Ver o filme</button>
       </div>
-    </section>
-
-    <section class="blk show" id="casa" data-stage="ext-deck" data-stop="Deck e piscina" aria-labelledby="show-h">
-      <div class="plate" data-rv>
-        <img class="on" data-v="vista-3p" src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="Personagem caminhando entre o estar e a cozinha da Casa Vista" loading="lazy">
-      </div>
-      <div class="tabs" role="tablist" aria-label="Ponto de vista" data-rv>
-        <button role="tab" aria-selected="true" data-v="vista-3p">Terceira pessoa</button>
-        <button role="tab" aria-selected="false" data-v="vista-1p">Primeira pessoa</button>
-        <button role="tab" aria-selected="false" data-v="int-quarto">Pavimento superior</button>
-      </div>
-      <div data-rv>
-        <h2 id="show-h">Ande pela Casa Vista</h2>
-      </div>
-      <div data-rv>
-        <p id="show-d">Sete paradas, três pavimentos e colisão real. Na terceira pessoa, o personagem dá a escala do pé-direito duplo e dos vãos.</p>
-      </div>
-      <div class="cells" data-rv>
-        <a class="a1" data-enter data-goatcounter-click="entrar-casa" href="https://tour.kraupp.com.br/" target="_blank" rel="noopener">Entrar na casa</a>
-        <a class="a2" data-full data-goatcounter-click="tour-tela-cheia" href="https://tour.kraupp.com.br/" target="_blank" rel="noopener">Abrir em tela cheia</a>
-      </div>
-    </section>
-
-    <section class="blk menu" id="inclui" data-stage="int-cozinha" data-stop="Cozinha" aria-labelledby="menu-h">
-      <div data-rv><h2 id="menu-h">O que vem no projeto</h2></div>
-      <div data-rv>
-        <table>
-          <caption>Para o comprador</caption>
-          <tr><td><span class="nm">Andar em primeira e terceira pessoa</span><span class="ds">Troca com um toque; o personagem serve de régua.</span></td><td class="vl">incluso</td></tr>
-          <tr><td><span class="nm">Paradas por ambiente</span><span class="ds">Do acesso pela rua ao último pavimento.</span></td><td class="vl">até 8</td></tr>
-          <tr><td><span class="nm">Luz do sol do terreno</span><span class="ds">Calculada para a orientação real do lote.</span></td><td class="vl">incluso</td></tr>
-          <tr><td><span class="nm">Abre em qualquer tela</span><span class="ds">Navegador do celular, do computador e da TV.</span></td><td class="vl">sem app</td></tr>
-        </table>
-      </div>
-      <div data-rv>
-        <table>
-          <caption>Para o comercial</caption>
-          <tr><td><span class="nm">Link por cliente</span><span class="ds">O corretor sabe quem abriu e quantas vezes.</span></td><td class="vl">incluso</td></tr>
-          <tr><td><span class="nm">Botão de agendar visita</span><span class="ds">Dentro do passeio, direto para o WhatsApp de vocês.</span></td><td class="vl">incluso</td></tr>
-          <tr><td><span class="nm">Modo stand</span><span class="ds">Tela cheia, com o corretor conduzindo pelas paradas.</span></td><td class="vl">incluso</td></tr>
-        </table>
-      </div>
-      <div data-rv>
-        <table>
-          <caption>Para o marketing</caption>
-          <tr><td><span class="nm">Filme gravado da experiência</span><span class="ds">Versão longa e cortes verticais para anúncio.</span></td><td class="vl">opcional</td></tr>
-          <tr><td><span class="nm">Imagens capturadas no passeio</span><span class="ds">Os mesmos ambientes, prontos para o site.</span></td><td class="vl">opcional</td></tr>
-        </table>
-      </div>
-    </section>
-
-    <section class="blk proc" id="processo" data-stage="ext-lateral" data-stop="Pavimento superior" aria-labelledby="proc-h">
-      <div data-rv><h2 id="proc-h">Quinze dias até o link</h2></div>
-      <div data-rv><p>Partimos do modelo 3D que o arquiteto já tem. As medidas continuam as dele; o trabalho é deixar a casa andável e com a luz certa.</p></div>
-      <div class="slip" data-rv>
-        <table>
-          <tr><th colspan="2">Semana 1</th></tr>
-          <tr><td><span class="nm">Recebemos o modelo</span></td><td>dia 1</td></tr>
-          <tr><td><span class="nm">Geometria, vidros e materiais</span></td><td>dias 2 a 5</td></tr>
-          <tr><th colspan="2">Semana 2</th></tr>
-          <tr><td><span class="nm">Luz do sol do terreno</span></td><td>dias 6 a 9</td></tr>
-          <tr><td><span class="nm">Paradas e controles</span></td><td>dias 10 e 11</td></tr>
-          <tr><th colspan="2">Semana 3</th></tr>
-          <tr><td><span class="nm">Revisão com vocês</span></td><td>dia 12</td></tr>
-          <tr><td><span class="nm">Ajustes finais</span></td><td>dias 13 e 14</td></tr>
-          <tr class="end"><td>Link no ar para stand e WhatsApp</td><td>dia 15</td></tr>
-        </table>
-      </div>
-    </section>
-
-  </main>
-
-  <aside class="stage" id="stage" aria-label="A Casa Vista, parada atual">
-    <video class="fr on" data-k="filme" muted loop playsinline autoplay preload="metadata" poster="assets/experiencia/filme-poster.webp" aria-label="Filme da Casa Vista gravado na experiência interativa">
-      <source src="assets/experiencia/filme-casa-vista-960.mp4" type="video/mp4" media="(max-width: 900px)">
-      <source src="assets/experiencia/filme-casa-vista.mp4" type="video/mp4">
-    </video>
-    <img class="fr" data-k="int-estar" src="assets/experiencia/int-estar.webp" width="1920" height="1080" alt="Estar e jantar com forro de madeira e pé-direito duplo" loading="lazy">
-    <img class="fr" data-k="ext-deck" src="assets/experiencia/ext-deck.webp" width="1920" height="1080" alt="Deck e piscina da Casa Vista no fim da tarde" loading="lazy">
-    <img class="fr" data-k="int-cozinha" src="assets/experiencia/int-cozinha.webp" width="1920" height="1080" alt="Cozinha com ilha central" loading="lazy">
-    <img class="fr" data-k="ext-lateral" src="assets/experiencia/ext-lateral.webp" width="1920" height="1080" alt="A Casa Vista sobre o terreno, com o pavimento superior em balanço" loading="lazy">
-    <div class="sbar"><span><b id="stop">Rua</b> · Casa Vista</span><span id="for">tour.kraupp.com.br</span></div>
-  </aside>
-</div>
-
-<section class="uses" id="usos" aria-labelledby="uses-h">
-  <img src="assets/experiencia/deck-estar.webp" width="1920" height="1080" alt="Deck da Casa Vista integrado ao estar" loading="lazy">
-  <div class="sheet" data-rv>
-    <h2 id="uses-h">Onde ele vende</h2>
-    <p>O mesmo link, do stand ao WhatsApp</p>
-    <h3>No stand</h3>
-    <ul>
-      <li>Tela grande com o corretor conduzindo <span>corretor</span><small>As paradas levam direto ao ambiente que o cliente quer rever.</small></li>
-      <li>Totem para o cliente explorar sozinho <span>cliente</span><small>Enquanto espera, ele já está dentro do apartamento.</small></li>
-    </ul>
-    <h3>Na conversa</h3>
-    <ul>
-      <li>Link no WhatsApp do corretor <span>corretor</span><small>O cliente abre no sofá e mostra para a família.</small></li>
-      <li>E-mail para a base de clientes <span>marketing</span><small>Um motivo novo para reabrir quem esfriou.</small></li>
-    </ul>
-    <h3>Na campanha</h3>
-    <ul>
-      <li>Site do empreendimento <span>marketing</span><small>O visitante sai da página de vendas e entra na casa.</small></li>
-      <li>Anúncio que leva para dentro <span>marketing</span><small>Clique no anúncio, chegada pela rua do terreno.</small></li>
-    </ul>
-    <h3>Antes de lançar</h3>
-    <ul>
-      <li>Investidores e banco <span>diretoria</span><small>O produto apresentado antes do primeiro tijolo.</small></li>
-      <li>Personalização da unidade <span>cliente</span><small>A escolha de acabamento vista no ambiente, antes da obra.</small></li>
-      <li>Aprovação de projeto <span>diretoria</span><small>Arquitetura, engenharia e comercial no mesmo espaço, na mesma escala.</small></li>
-    </ul>
-    <p class="note">Casa Vista · residência em três pavimentos<br>Imagens capturadas na própria experiência</p>
-  </div>
-</section>
-
-<section class="price" id="piloto" aria-label="Investimento">
-  <div class="pf p1" data-rv>
-    <h2>Lançamento</h2>
-    <p class="who">O empreendimento inteiro: unidades-tipo, decorado, áreas comuns e implantação.</p>
-    <p class="inc">Escopo e prazo saem do modelo do projeto. Inclui as paradas do comercial, link por cliente, modo stand e, se quiserem, filme e imagens capturadas no passeio.</p>
-    <div class="bot"><p class="val">48 h<small>para a proposta</small></p><a class="btn" data-goatcounter-click="whatsapp-lancamento" data-wa="Quero uma proposta de projeto interativo para um lançamento" href="https://wa.me/5511976791813" target="_blank" rel="noopener">Pedir proposta</a></div>
-  </div>
-  <div class="pf p2" data-rv>
-    <h2>Piloto</h2>
-    <p class="who">Uma unidade ou casa, pronta em 15 dias, para testar no stand e no WhatsApp.</p>
-    <p class="inc">Modelo andável com a luz do terreno, até oito paradas, link próprio com contagem de acessos e botão de agendar. Duas vagas com início até 1º de dezembro. O valor é abatido se o lançamento completo for fechado até março de 2027.</p>
-    <div class="bot"><p class="val">R$ 9,8 mil<small>por unidade</small></p><a class="btn" data-goatcounter-click="whatsapp-piloto" data-wa="Quero reservar uma vaga do piloto de projeto interativo" href="https://wa.me/5511976791813" target="_blank" rel="noopener">Reservar uma vaga</a></div>
-  </div>
-</section>
-
-<section class="faq" id="perguntas" aria-labelledby="faq-h">
-  <div data-rv><h2 id="faq-h">Perguntas</h2></div>
-  <div class="txt" data-rv>
-    <p><b>Qual material vocês precisam?</b> O modelo 3D do projeto, em SketchUp ou exportado do Revit ou do ArchiCAD. Se houver só plantas, a modelagem entra como etapa extra.</p>
-    <p><b>O cliente precisa instalar algo?</b> Não. Abre no navegador, por link. No stand, roda num computador ligado à TV.</p>
-    <p><b>Funciona no celular?</b> Sim, com toque: a metade esquerda da tela anda e a direita olha. A versão mais rica roda no computador e na tela do stand.</p>
-    <p><b>É fiel ao projeto?</b> A geometria vem do modelo do arquiteto, sem redesenho. Materiais e luz são conferidos contra as imagens oficiais do empreendimento.</p>
-    <p><b>Dá para mudar depois?</b> Sim. Troca de acabamento ou de layout antes do lançamento entra numa rodada de ajuste.</p>
-    <p><b>O link fica aberto para todos?</b> Só se vocês quiserem. Antes do lançamento ele pode circular apenas entre quem recebeu.</p>
-    <p><b>Quem hospeda?</b> Nós, durante a campanha. O endereço pode levar o nome do empreendimento.</p>
-    <p><b>Aparece a marca de quem?</b> A do empreendimento. Agências podem entregar com a própria assinatura.</p>
-    <p><b>Como começa?</b> Numa apresentação de 20 minutos: você anda pela Casa Vista ao vivo e conversamos sobre o seu lançamento.</p>
-  </div>
-</section>
-
-<section class="contact" id="contato" aria-label="Agendar apresentação">
-  <p class="say" data-rv><b>Conte qual é o lançamento.</b> Em 20 minutos você anda pela casa ao vivo e sai com escopo e prazo.</p>
-  <div class="acts" data-rv>
-    <a class="btn" data-goatcounter-click="whatsapp-tour3d" data-wa="Quero agendar uma apresentação do projeto interativo" href="https://wa.me/5511976791813" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
-  </div>
-  <a class="mail" data-goatcounter-click="email-tour3d" href="mailto:m@kraupp.com.br?subject=Apresenta%C3%A7%C3%A3o%20do%20projeto%20interativo">m@<wbr>kraupp.com.br</a>
-  <div class="corners">
-    <span><a data-goatcounter-click="whatsapp-tour3d" data-wa="Quero agendar uma apresentação do projeto interativo" href="https://wa.me/5511976791813" target="_blank" rel="noopener">(11) 97679-1813</a> · São Paulo</span>
-    <span><a href="https://instagram.com/matheuskraupp" target="_blank" rel="noopener">@matheuskraupp</a> · <a href="index.html">Imagens e filmes</a></span>
-  </div>
-</section>
-
-<footer class="foot">
-  <div class="ph"><img src="assets/experiencia/int-jantar.webp" width="1920" height="1080" alt="Jantar da Casa Vista com vista para o jardim" loading="lazy"></div>
-  <div class="mn">
-    <a class="mark" href="#" aria-label="Voltar ao topo"><i>M</i>KRAUPP</a>
-    <nav aria-label="Seções">
-      <a data-enter data-goatcounter-click="entrar-casa" href="https://tour.kraupp.com.br/" target="_blank" rel="noopener">Entrar na casa</a>
-      <a href="#inclui">O que vem</a>
-      <a href="#processo">Quinze dias</a>
-      <a href="#usos">Onde vende</a>
-      <a href="#piloto">Piloto</a>
-      <a href="#perguntas">Perguntas</a>
-    </nav>
-    <div class="two">
-      <div><b>Contato</b><a href="mailto:m@kraupp.com.br">m@kraupp.com.br</a><a data-wa="Quero agendar uma apresentação do projeto interativo" href="https://wa.me/5511976791813" target="_blank" rel="noopener">(11) 97679-1813</a></div>
-      <div><b>Matheus Kraupp</b><a href="https://instagram.com/matheuskraupp" target="_blank" rel="noopener">@matheuskraupp</a><a href="index.html">Imagens e filmes</a></div>
     </div>
-    <small>Imagens e filme capturados na experiência interativa da Casa Vista, em caráter ilustrativo. © 2026 Matheus Kraupp</small>
+    <aside class="ui rv" aria-label="Interface do passeio, sincronizada com o filme">
+      <div class="ui-h mono"><span>Passeio · Casa Vista</span><b id="forTag">gravado ao vivo</b></div>
+      <p class="ui-room" id="uiRoom">Deck e piscina</p>
+      <div class="ui-mode mono"><span id="m3" class="on">3ª pessoa</span><span id="m1">1ª pessoa</span></div>
+      <ul class="ui-stops mono" id="uiStops">
+        <li class="on">Deck e piscina</li><li>Estar e jantar</li><li>Cozinha</li><li>Escada</li><li>Pavimento superior</li><li>Fachada</li>
+      </ul>
+      <div class="ui-bar"><i id="uiBar"></i></div>
+      <div class="ui-t mono"><span id="uiTime">00:00</span><span>3 pavimentos · 7 paradas</span></div>
+    </aside>
+  </div>
+</section>
+
+<section class="mani" aria-label="Por que">
+  <span class="mono">O problema</span>
+  <p id="mani">Quem compra um apartamento de R$ 7 milhões na planta decide por uma sensação: como é estar lá dentro. A planta mostra medidas. O render mostra o ângulo que alguém escolheu. O projeto interativo deixa o cliente escolher para onde olhar.</p>
+</section>
+
+<section class="tour" id="visita" aria-label="A visita, capítulo por capítulo">
+  <div class="ch-img on"><img src="assets/experiencia/ext-rua.webp" width="1920" height="1080" alt="" loading="lazy"></div>
+  <div class="ch-img"><img src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="" loading="lazy"></div>
+  <div class="ch-img"><img src="assets/experiencia/vista-1p.webp" width="1920" height="1080" alt="" loading="lazy"></div>
+  <div class="ch-img"><img src="assets/experiencia/int-quarto.webp" width="1920" height="1080" alt="" loading="lazy"></div>
+  <div class="scrim"></div>
+  <div class="ch-t">
+    <article class="ch" style="opacity:1">
+      <figure><img src="assets/experiencia/ext-rua.webp" width="1920" height="1080" alt="Acesso da Casa Vista pela rua, com escada e pergolado" loading="lazy"></figure>
+      <span class="mono">01 · Chegada</span><h2 class="serif">Chegue pela rua.</h2>
+      <p>A visita começa onde o comprador vai estacionar: calçada, portão, escada e a primeira vista da fachada.</p>
+    </article>
+    <article class="ch">
+      <figure><img src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="Personagem caminhando no estar e jantar da Casa Vista" loading="lazy"></figure>
+      <span class="mono">02 · Terceira pessoa</span><h2 class="serif">Meça o pé-direito com o corpo.</h2>
+      <p>O personagem é a régua. Ao lado dele, o pé-direito duplo e os vãos deixam de ser número e viram escala.</p>
+    </article>
+    <article class="ch">
+      <figure><img src="assets/experiencia/vista-1p.webp" width="1920" height="1080" alt="O estar visto em primeira pessoa" loading="lazy"></figure>
+      <span class="mono">03 · Primeira pessoa</span><h2 class="serif">Olhe com os próprios olhos.</h2>
+      <p>Um toque troca a câmera. O cliente para no meio do estar, vira para a varanda e fica quanto quiser.</p>
+    </article>
+    <article class="ch">
+      <figure><img src="assets/experiencia/int-quarto.webp" width="1920" height="1080" alt="Quarto com escritório no pavimento superior" loading="lazy"></figure>
+      <span class="mono">04 · Pavimento superior</span><h2 class="serif">Suba e confira a vista.</h2>
+      <p>Escadas e níveis andáveis. Ele entra no quarto e vê a paisagem antes de existir parede.</p>
+    </article>
+  </div>
+  <div class="ch-nav mono" aria-hidden="true"><span class="on">Chegada</span><span>3ª pessoa</span><span>1ª pessoa</span><span>Pavimento superior</span></div>
+  <div class="ch-prog"><i id="chProg"></i></div>
+</section>
+
+<section class="sec" id="recursos" aria-labelledby="rec-h">
+  <div class="head">
+    <div><span class="mono rv">Recursos</span><h2 class="serif rv" id="rec-h">Um decorado que cabe num link.</h2></div>
+    <p class="rv">Tudo o que o comprador faz no stand, ele faz no celular. Tudo o que o corretor precisa saber chega no WhatsApp dele.</p>
+  </div>
+  <div class="bento">
+    <div class="t t-a rv">
+      <div class="cmp" id="cmp" role="slider" tabindex="0" aria-label="Comparar terceira e primeira pessoa" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="Estar em terceira pessoa" loading="lazy">
+        <img class="top" src="assets/experiencia/vista-1p.webp" width="1920" height="1080" alt="Estar em primeira pessoa" loading="lazy">
+        <span class="lb a mono">3ª pessoa</span><span class="lb b mono">1ª pessoa</span>
+        <span class="hand"></span>
+      </div>
+      <div class="t-cap"><h3>Duas câmeras, um toque.</h3><p>Arraste para comparar. Na terceira pessoa o corpo dá a escala; na primeira, o cliente olha como se estivesse lá.</p></div>
+    </div>
+    <div class="t t-b rv">
+      <div class="t-img"><img src="assets/experiencia/ext-deck.webp" width="1920" height="1080" alt="Deck e piscina com a luz do fim da tarde" loading="lazy"></div>
+      <div class="t-cap"><span class="mono">Luz</span><h3>O sol do terreno.</h3><p>A luz é calculada para a orientação real do lote. A sombra cai onde vai cair.</p></div>
+    </div>
+    <div class="t t-c rv">
+      <div><span class="mono">Acesso</span><h3>Roda no navegador.</h3><p>Sem aplicativo e sem óculos.</p></div>
+      <div class="spec mono"><div><span>Celular</span><span>toque</span></div><div><span>Computador</span><span>teclado e mouse</span></div><div><span>TV do stand</span><span>tela cheia</span></div></div>
+    </div>
+    <div class="t t-d rv">
+      <div><span class="mono">Comercial</span><h3>As paradas do corretor.</h3><p>Ele leva o cliente direto ao ambiente que importa.</p></div>
+      <div class="chips mono"><span>Rua</span><span>Deck e piscina</span><span>Estar e jantar</span><span>Cozinha</span><span>Suítes</span><span>Escada</span><span>Superior</span></div>
+    </div>
+    <div class="t t-e rv">
+      <div><span class="mono">Inteligência</span><h3>Link por cliente.</h3><p>O corretor sabe quem entrou na casa e quando voltar a ligar.</p></div>
+      <div class="note"><span class="mono">Exemplo · 09:12</span><b>Cliente entrou na casa 3 vezes hoje</b><span class="mono" style="color:var(--ink2)">Ligar ainda pela manhã</span></div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Números">
+  <div class="nums">
+    <div class="rv"><b>15</b><span class="mono">dias do modelo ao link</span></div>
+    <div class="rv"><b>0</b><span class="mono">aplicativos para instalar</span></div>
+    <div class="rv"><b>7</b><span class="mono">paradas guiadas</span></div>
+    <div class="rv"><b>3</b><span class="mono">pavimentos andáveis</span></div>
+  </div>
+  <div class="proof">
+    <blockquote class="rv">Num caso publicado pela Epic Games, uma incorporadora de Dubai passou de US$ 24 milhões para mais de US$ 400 milhões em vendas com gêmeos digitais no navegador.</blockquote>
+    <p class="mono rv"><a href="https://www.unrealengine.com/en-US/spotlights/propvrs-digital-twins-help-real-estate-developer-boost-revenue-by-10x" target="_blank" rel="noopener">Fonte: Unreal Engine Spotlight ↗</a></p>
+  </div>
+</section>
+
+<section class="hz" id="usos" aria-labelledby="uso-h">
+  <div class="head">
+    <div><span class="mono rv">Onde vende</span><h2 class="serif rv" id="uso-h">O mesmo link, seis lugares.</h2></div>
+    <p class="rv">Do stand ao sofá do cliente, da campanha à reunião com o banco.</p>
+  </div>
+  <div class="track" id="track">
+    <article class="card"><img src="assets/experiencia/deck-estar.webp" width="1920" height="1080" alt="" loading="lazy"><div><span class="mono">No stand</span><h3>A TV vira a obra.</h3><p>O corretor conduz pelas paradas; o cliente pega o controle.</p></div></article>
+    <article class="card"><img src="assets/experiencia/int-estar.webp" width="1920" height="1080" alt="" loading="lazy"><div><span class="mono">No WhatsApp</span><h3>Um link que viaja.</h3><p>O cliente abre no sofá e mostra para a família à noite.</p></div></article>
+    <article class="card"><img src="assets/experiencia/ext-frente.webp" width="1920" height="1080" alt="" loading="lazy"><div><span class="mono">Na campanha</span><h3>Do anúncio para dentro.</h3><p>O clique leva à rua do terreno, não a um formulário.</p></div></article>
+    <article class="card"><img src="assets/experiencia/int-cozinha.webp" width="1920" height="1080" alt="" loading="lazy"><div><span class="mono">Personalização</span><h3>A escolha no ambiente.</h3><p>O acabamento visto no lugar, antes de assinar.</p></div></article>
+    <article class="card"><img src="assets/experiencia/ext-lateral.webp" width="1920" height="1080" alt="" loading="lazy"><div><span class="mono">Investidores e banco</span><h3>O produto antes do tijolo.</h3><p>A reunião começa dentro do empreendimento.</p></div></article>
+    <article class="card"><img src="assets/experiencia/int-jantar.webp" width="1920" height="1080" alt="" loading="lazy"><div><span class="mono">Aprovação</span><h3>Todos na mesma escala.</h3><p>Arquitetura, engenharia e comercial no mesmo espaço.</p></div></article>
+  </div>
+</section>
+
+<section class="sec" id="investimento" aria-labelledby="inv-h">
+  <div class="head">
+    <div><span class="mono rv">Investimento</span><h2 class="serif rv" id="inv-h">O mercado cobra caro por isso.</h2></div>
+    <p class="rv">Levantamos o que fornecedores publicam e o que a imprensa registrou. Os nomes ficam de fora; as faixas, não.</p>
+  </div>
+  <table class="mk rv">
+    <thead><tr><th>Alternativa</th><th>Faixa publicada</th><th>Prazo</th><th>No celular</th><th>O que tem de melhor</th></tr></thead>
+    <tbody>
+      <tr><td><span class="cat">Decorado físico</span><span class="who mono"><i class="red" style="width:92px" aria-label="nome omitido"></i> incorporadora, SP</span></td><td data-h="Faixa"><span class="val">1% a 2% do VGV</span><br><span class="mono no">muitas vezes acima de R$ 1 mi</span></td><td data-h="Prazo">cerca de 16 semanas</td><td data-h="No celular" class="no">não</td><td data-h="O melhor" class="best">tocar no material</td></tr>
+      <tr><td><span class="cat">Sala imersiva e loja conceito</span><span class="who mono"><i class="red" style="width:70px" aria-label="nome omitido"></i> SC e MG</span></td><td data-h="Faixa"><span class="val">R$ 1,5 a 1,9 mi</span></td><td data-h="Prazo">meses</td><td data-h="No celular" class="no">não</td><td data-h="O melhor" class="best">impacto no stand</td></tr>
+      <tr><td><span class="cat">Estúdios de Unreal com streaming</span><span class="who mono"><i class="red" style="width:84px" aria-label="nome omitido"></i> EUA</span></td><td data-h="Faixa"><span class="val">R$ 165 a 660 mil</span></td><td data-h="Prazo">6 a 14 semanas</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">escala de multinacional</td></tr>
+      <tr><td><span class="cat">Estúdios internacionais de real-time</span><span class="who mono"><i class="red" style="width:64px" aria-label="nome omitido"></i> Europa e EUA</span></td><td data-h="Faixa"><span class="val">R$ 27 a 104 mil</span></td><td data-h="Prazo">2 a 6 semanas</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">plataforma de vendas</td></tr>
+      <tr><td><span class="cat">Plataformas brasileiras de tour 3D</span><span class="who mono"><i class="red" style="width:58px" aria-label="nome omitido"></i> SP e GO</span></td><td data-h="Faixa"><span class="val">R$ 15 a 50 mil</span></td><td data-h="Prazo">3 semanas a 5 meses</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">espelho de vendas</td></tr>
+      <tr class="us"><td><span class="cat">Projeto interativo Kraupp</span><span class="who mono">São Paulo</span></td><td data-h="Faixa"><span class="val">uma fração</span></td><td data-h="Prazo">15 dias</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">luz real, 1ª e 3ª pessoa, link por cliente</td></tr>
+    </tbody>
+  </table>
+  <p class="src rv">Faixas públicas de 2025 e 2026: tabelas publicadas por fornecedores, matérias de imprensa e guias de custo do setor. Valores em dólar convertidos a R$ 5,51 (09/11/2026). Nomes omitidos de propósito.</p>
+  <div class="frac rv">
+    <p class="serif">Uma <em>fração</em> do que o mercado cobra. Mais qualidade, em menos tempo.</p>
+    <div class="side">
+      <span class="mono" style="color:var(--bronze-hi)">Piloto de dezembro</span>
+      <p>Uma unidade ou casa, pronta em 15 dias. Duas vagas com início até 1º de dezembro.</p>
+      <a class="b b-metal" href="#contato" data-goatcounter-click="piloto-reservar">Reservar uma vaga <span class="ar">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="processo" aria-labelledby="pro-h">
+  <div class="head">
+    <div><span class="mono rv">Processo</span><h2 class="serif rv" id="pro-h">Quinze dias até o link.</h2></div>
+    <p class="rv">Partimos do modelo 3D que o arquiteto já tem. As medidas continuam as dele.</p>
+  </div>
+  <div class="line15">
+    <div class="rail"><i id="rail"></i></div>
+    <div class="steps">
+      <div class="st rv"><span class="mono">Dia 1</span><b>O modelo chega</b><p>SketchUp, Revit ou ArchiCAD.</p></div>
+      <div class="st rv"><span class="mono">Dias 2 a 5</span><b>Geometria e materiais</b><p>Vidros, portas e acabamentos do memorial.</p></div>
+      <div class="st rv"><span class="mono">Dias 6 a 9</span><b>Luz do terreno</b><p>Sol na orientação real do lote.</p></div>
+      <div class="st rv"><span class="mono">Dias 10 e 11</span><b>Paradas e controles</b><p>O roteiro do comercial.</p></div>
+      <div class="st rv"><span class="mono">Dias 12 a 14</span><b>Revisão com vocês</b><p>Uma rodada de ajuste inclusa.</p></div>
+      <div class="st rv"><span class="mono">Dia 15</span><b>Link no ar</b><p>Stand, site e WhatsApp.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="perguntas" aria-labelledby="faq-h">
+  <div class="faq">
+    <div><span class="mono rv lab">Perguntas</span><h2 class="serif rv" id="faq-h">O que costumam perguntar.</h2></div>
+    <div class="rv">
+      <details open><summary>Qual material vocês precisam?</summary><p>O modelo 3D do projeto, em SketchUp ou exportado do Revit ou do ArchiCAD. Se houver só plantas, a modelagem entra como etapa extra.</p></details>
+      <details><summary>O cliente precisa instalar algo?</summary><p>Não. Abre no navegador, por link. No stand, roda num computador ligado à TV.</p></details>
+      <details><summary>Funciona no celular?</summary><p>Sim, com toque: a metade esquerda da tela anda e a direita olha. A versão mais rica roda no computador e na tela do stand.</p></details>
+      <details><summary>É fiel ao projeto?</summary><p>A geometria vem do modelo do arquiteto, sem redesenho. Materiais e luz são conferidos contra as imagens oficiais do empreendimento.</p></details>
+      <details><summary>O link fica aberto para qualquer um?</summary><p>Não. Cada cliente recebe o seu, e antes do lançamento ele circula só entre quem vocês escolherem.</p></details>
+      <details><summary>Aparece a marca de quem?</summary><p>A do empreendimento. Agências podem entregar com a própria assinatura.</p></details>
+      <details><summary>Por que o passeio não está aberto aqui?</summary><p>Porque ele é mostrado ao vivo, numa apresentação de 20 minutos, com o seu lançamento na conversa.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contato" aria-labelledby="cta-h">
+  <div>
+    <span class="mono rv lab">Apresentação · 20 minutos</span>
+    <h2 class="serif rv" id="cta-h">Entre na casa <em>ao vivo.</em></h2>
+    <p class="lead rv">Em 20 minutos você anda pela Casa Vista comigo e sai com escopo e prazo para o seu lançamento.</p>
+    <div class="alt rv">
+      <a href="mailto:m@kraupp.com.br?subject=Apresenta%C3%A7%C3%A3o%20do%20projeto%20interativo" data-goatcounter-click="email-tour3d">m@kraupp.com.br</a>
+      <a href="https://wa.me/5511976791813" data-wa="Quero agendar uma apresentação do projeto interativo" target="_blank" rel="noopener" data-goatcounter-click="whatsapp-tour3d">(11) 97679-1813</a>
+    </div>
+  </div>
+  <form id="ag" class="rv" novalidate>
+    <span class="mono">Agendar pelo WhatsApp</span>
+    <label>Seu nome<input name="nome" autocomplete="name" required></label>
+    <label>Incorporadora<input name="empresa" autocomplete="organization" id="fEmp"></label>
+    <label>Empreendimento<input name="emp" placeholder="nome ou bairro"></label>
+    <label>Lançamento previsto
+      <select name="quando"><option>nos próximos 3 meses</option><option>de 3 a 6 meses</option><option>em mais de 6 meses</option><option>já lançado, quero reaquecer</option></select>
+    </label>
+    <button class="b b-metal" type="submit" data-goatcounter-click="form-agendar">Pedir horário <span class="ar">→</span></button>
+    <small>Abre o WhatsApp com a mensagem pronta. Nada é gravado neste site.</small>
+  </form>
+</section>
+</main>
+
+<footer>
+  <div class="big" aria-hidden="true">Kraupp</div>
+  <div class="row">
+    <span>Matheus Kraupp · direção de imagem e projetos interativos para o mercado imobiliário · São Paulo</span>
+    <span><a href="index.html">Imagens e filmes</a> · <a href="https://instagram.com/matheuskraupp" target="_blank" rel="noopener">@matheuskraupp</a></span>
+    <span>Imagens e filme capturados no projeto interativo da Casa Vista, em caráter ilustrativo. © 2026</span>
   </div>
 </footer>
 
+<dialog id="dlg" aria-label="Filme da Casa Vista">
+  <button class="x mono" type="button" id="dlgX">Fechar</button>
+  <video id="dlgV" controls playsinline preload="none" poster="assets/experiencia/filme-poster.webp">
+    <source src="assets/experiencia/filme-casa-vista.mp4" type="video/mp4">
+  </video>
+</dialog>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
 <script>
-(() => {
-  const P = 'assets/experiencia/';
+addEventListener('DOMContentLoaded', () => {
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const phone = matchMedia('(max-width: 900px)');
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
   // prospect: ?c=slug&n=Nome
   const q = new URLSearchParams(location.search);
   const c = (q.get('c') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40);
   const n = (q.get('n') || '').trim().slice(0, 60);
-  const tour = new URL('https://tour.kraupp.com.br/'); if (c) tour.searchParams.set('c', c); if (n) tour.searchParams.set('n', n);
-  document.querySelectorAll('a[href="https://tour.kraupp.com.br/"]').forEach((a) => { a.href = tour.href; });
-  document.querySelectorAll('a[data-wa]').forEach((a) => {
-    const t = 'Olá, Matheus. ' + a.dataset.wa + (n ? ' (vi a página preparada para ' + n + ')' : '') + '.';
-    a.href = 'https://wa.me/5511976791813?text=' + encodeURIComponent(t);
-  });
-  if (n) document.getElementById('for').textContent = 'Preparado para ' + n;
+  const wa = (t) => 'https://wa.me/5511976791813?text=' + encodeURIComponent('Olá, Matheus. ' + t + (n ? ' (vi a página preparada para ' + n + ')' : '') + '.');
+  $$('a[data-wa]').forEach((a) => { a.href = wa(a.dataset.wa); });
+  if (n) { $('#forTag').textContent = 'Preparado para ' + n; $('#cornerL').textContent = 'Preparado para ' + n; $('#fEmp').value = n; }
   if (c) {
-    document.querySelectorAll('[data-goatcounter-click]').forEach((a) => { a.dataset.goatcounterClick += '/' + c; });
+    $$('[data-goatcounter-click]').forEach((a) => { a.dataset.goatcounterClick += '/' + c; });
     const hit = () => window.goatcounter.count({ path: 'tour-aberto/' + c, title: n || c, event: true });
     if (window.goatcounter && window.goatcounter.count) hit(); else addEventListener('load', () => window.goatcounter && window.goatcounter.count && hit());
   }
 
-  // palco: a parada muda com a seção lida
-  const stage = document.getElementById('stage'), frames = [...stage.querySelectorAll('.fr')], stop = document.getElementById('stop');
-  const film = stage.querySelector('video');
-  if (still) { film.removeAttribute('autoplay'); film.pause(); }
-  const show = (k, label) => {
-    frames.forEach((f) => f.classList.toggle('on', f.dataset.k === k));
-    if (label) stop.textContent = label;
-    if (!still) { if (k === 'filme') film.play().catch(() => {}); else film.pause(); }
-  };
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) show(e.target.dataset.stage, e.target.dataset.stop); }), { rootMargin: '-45% 0px -45% 0px' });
-  document.querySelectorAll('[data-stage]').forEach((s) => io.observe(s));
-  document.addEventListener('visibilitychange', () => { if (document.hidden) film.pause(); });
-
-  // entrar na casa: no computador, o palco vira o passeio
-  let frame = null;
-  const exit = () => { frame && frame.remove(); frame = null; stage.querySelector('.exit')?.remove(); };
-  document.querySelectorAll('a[data-enter]').forEach((a) => a.addEventListener('click', (e) => {
-    if (phone.matches || a.closest('.foot')) return;
+  // formulário vira mensagem de WhatsApp
+  $('#ag').addEventListener('submit', (e) => {
     e.preventDefault();
-    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'entrar-casa' + (c ? '/' + c : ''), event: true });
-    if (!frame) {
-      frame = document.createElement('iframe'); frame.src = tour.href; frame.title = 'Passeio interativo pela Casa Vista'; frame.allow = 'fullscreen';
-      const b = document.createElement('button'); b.className = 'exit'; b.type = 'button'; b.textContent = 'Sair da casa'; b.onclick = exit;
-      stage.append(frame, b);
-    }
-    stage.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'nearest' });
-    frame.focus();
-  }));
-
-  // tabs do ponto de vista
-  const plate = document.querySelector('.plate'), desc = document.getElementById('show-d');
-  const texts = { 'vista-3p': 'Sete paradas, três pavimentos e colisão real. Na terceira pessoa, o personagem dá a escala do pé-direito duplo e dos vãos.', 'vista-1p': 'Na primeira pessoa, o cliente olha com os próprios olhos: para onde quiser, pelo tempo que quiser.', 'int-quarto': 'A escada leva ao pavimento superior. O cliente entra no quarto e confere a vista antes de existir parede.' };
-  const alts = { 'vista-3p': 'Personagem caminhando entre o estar e a cozinha da Casa Vista', 'vista-1p': 'O mesmo ambiente visto em primeira pessoa', 'int-quarto': 'Quarto com escritório no pavimento superior' };
-  const tabs = [...document.querySelectorAll('.tabs button')];
-  tabs.forEach((t) => t.onclick = () => {
-    tabs.forEach((x) => x.setAttribute('aria-selected', x === t));
-    const v = t.dataset.v;
-    let img = plate.querySelector('img[data-v="' + v + '"]');
-    if (!img) { img = new Image(1920, 1080); img.dataset.v = v; img.src = P + v + '.webp'; img.alt = alts[v]; plate.append(img); }
-    requestAnimationFrame(() => plate.querySelectorAll('img').forEach((i) => i.classList.toggle('on', i === img)));
-    desc.textContent = texts[v];
+    const f = new FormData(e.target), nome = (f.get('nome') || '').trim();
+    if (!nome) { e.target.nome.focus(); return; }
+    const t = `Quero agendar uma apresentação do projeto interativo. Sou ${nome}${f.get('empresa') ? ', da ' + f.get('empresa') : ''}${f.get('emp') ? '. Empreendimento: ' + f.get('emp') : ''}. Lançamento ${f.get('quando')}`;
+    open(wa(t), '_blank', 'noopener');
   });
 
-  // entradas por seção
-  const rv = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }), { threshold: .12 });
-  document.querySelectorAll('[data-rv], .foot .ph').forEach((el) => rv.observe(el));
-  setTimeout(() => document.querySelectorAll('[data-rv]').forEach((el) => { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }), 60);
+  // interface do passeio sincronizada com o filme
+  const film = $('#film');
+  const tl = [[0, 'Deck e piscina', 3], [4, 'Estar e jantar', 3], [10, 'Cozinha', 1], [14, 'Escada', 3], [16, 'Pavimento superior', 1], [20, 'Fachada', 3]];
+  const stops = $$('#uiStops li'); let cur = 0;
+  const fmt = (s) => '00:' + String(Math.floor(s)).padStart(2, '0');
+  film.addEventListener('timeupdate', () => {
+    const t = film.currentTime; let i = 0; tl.forEach((p, k) => { if (t >= p[0]) i = k; });
+    $('#uiBar').style.width = (100 * t / (film.duration || 24)) + '%'; $('#uiTime').textContent = fmt(t);
+    if (i !== cur) { cur = i; $('#uiRoom').textContent = tl[i][1]; stops.forEach((s, k) => s.classList.toggle('on', k === i)); $('#m3').classList.toggle('on', tl[i][2] === 3); $('#m1').classList.toggle('on', tl[i][2] === 1); }
+  });
+  if (still) { film.removeAttribute('autoplay'); film.pause(); }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) film.pause(); else if (!still) film.play().catch(() => {}); });
 
-})();
+  // filme em tela cheia
+  const dlg = $('#dlg'), dv = $('#dlgV');
+  $$('[data-film]').forEach((b) => b.addEventListener('click', () => { dlg.showModal(); dv.play().catch(() => {}); }));
+  const close = () => { dv.pause(); dlg.close(); };
+  $('#dlgX').onclick = close; dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); }); dlg.addEventListener('close', () => dv.pause());
+
+  // comparador 1ª x 3ª
+  const cmp = $('#cmp');
+  const setX = (p) => { p = Math.max(0, Math.min(100, p)); cmp.style.setProperty('--x', p + '%'); cmp.setAttribute('aria-valuenow', Math.round(p)); };
+  const fromEv = (e) => { const r = cmp.getBoundingClientRect(); setX(100 * (e.clientX - r.left) / r.width); };
+  let drag = false;
+  cmp.addEventListener('pointerdown', (e) => { drag = true; cmp.setPointerCapture(e.pointerId); fromEv(e); });
+  cmp.addEventListener('pointermove', (e) => { if (drag) fromEv(e); });
+  cmp.addEventListener('pointerup', () => { drag = false; });
+  cmp.addEventListener('keydown', (e) => { const v = +cmp.getAttribute('aria-valuenow'); if (e.key === 'ArrowLeft') setX(v - 5); if (e.key === 'ArrowRight') setX(v + 5); });
+
+  // topo sólido depois da abertura
+  const hud = $('#hud');
+  const cl = $('.corner.l');
+  addEventListener('scroll', () => { hud.classList.toggle('solid', scrollY > innerHeight * .6); cl.classList.toggle('off', scrollY > innerHeight * .5); }, { passive: true });
+
+  // manifesto: palavras acendem com a leitura
+  const mani = $('#mani');
+  mani.innerHTML = mani.textContent.split(' ').map((w) => '<span class="w">' + w + '</span>').join(' ');
+  const words = $$('.w', mani);
+
+  const reveal = () => $$('.rv').forEach((el) => { el.style.opacity = 1; el.style.transform = 'none'; });
+  if (still || !window.gsap || !window.ScrollTrigger) { reveal(); words.forEach((w) => w.classList.add('on')); return; }
+
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis) {
+    const lenis = new Lenis({ lerp: .1 }); lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add((t) => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+    $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => { const t = $(a.getAttribute('href')); if (t) { e.preventDefault(); lenis.scrollTo(t); } }));
+  }
+
+  // abertura
+  gsap.from('.hero h1 .ln>span', { yPercent: 110, duration: 1.3, ease: 'expo.out', stagger: .12, delay: .15 });
+  gsap.to('.hero .rv', { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: .1, delay: .6 });
+  gsap.to('.hero video', { scale: 1.12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+  // entradas por seção
+  $$('.rv').filter((el) => !el.closest('.hero')).forEach((el) => gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
+
+  // manifesto por scroll
+  ScrollTrigger.create({ trigger: mani, start: 'top 78%', end: 'bottom 45%', scrub: true, onUpdate: (s) => { const k = Math.round(s.progress * words.length); words.forEach((w, i) => w.classList.toggle('on', i < k)); } });
+
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 901px)', () => {
+    // capítulos fixos
+    const imgs = $$('.ch-img'), chs = $$('.ch'), nav = $$('.ch-nav span'), N = chs.length;
+    $$('.ch figure').forEach((f) => { f.style.display = 'none'; });
+    gsap.set(chs, { opacity: 0, y: 40 }); gsap.set(chs[0], { opacity: 1, y: 0 });
+    let on = 0;
+    const go = (i) => {
+      if (i === on) return;
+      gsap.to(imgs[on], { opacity: 0, duration: .9, ease: 'power2.out' }); gsap.to(imgs[i], { opacity: 1, duration: .9, ease: 'power2.out' });
+      gsap.to(chs[on], { opacity: 0, y: i > on ? -40 : 40, duration: .6, ease: 'power3.out' });
+      gsap.fromTo(chs[i], { opacity: 0, y: i > on ? 40 : -40 }, { opacity: 1, y: 0, duration: .8, ease: 'expo.out', delay: .1 });
+      nav.forEach((s, k) => s.classList.toggle('on', k === i)); on = i;
+    };
+    imgs.forEach((im) => gsap.to(im.querySelector('img'), { scale: 1, ease: 'none', scrollTrigger: { trigger: '.tour', start: 'top top', end: () => '+=' + innerHeight * N, scrub: true } }));
+    ScrollTrigger.create({ trigger: '.tour', start: 'top top', end: () => '+=' + innerHeight * N, pin: true, scrub: true,
+      onUpdate: (s) => { $('#chProg').style.width = s.progress * 100 + '%'; go(Math.min(N - 1, Math.floor(s.progress * N))); } });
+
+    // faixa horizontal
+    const track = $('#track');
+    gsap.to(track, { x: () => -(track.scrollWidth - innerWidth), ease: 'none', scrollTrigger: { trigger: '.hz', start: 'top top', end: () => '+=' + (track.scrollWidth - innerWidth), pin: true, scrub: true, invalidateOnRefresh: true } });
+
+    // trilho dos 15 dias
+    gsap.to('#rail', { width: '100%', ease: 'none', scrollTrigger: { trigger: '.line15', start: 'top 80%', end: 'bottom 55%', scrub: true } });
+    return () => { $$('.ch figure').forEach((f) => { f.style.display = ''; }); gsap.set(chs, { clearProps: 'all' }); };
+  });
+
+  // números sobem contando
+  $$('.nums b').forEach((b) => { const end = +b.textContent, o = { v: 0 }; gsap.to(o, { v: end, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: b, start: 'top 88%', once: true }, onUpdate: () => { b.textContent = Math.round(o.v); } }); });
+});
 </script>
 </body>
 </html>
