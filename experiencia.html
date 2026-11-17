@@ -113,23 +113,15 @@ body[data-theme="light"] .hud.solid .b-w,body[data-theme="alt"] .hud.solid .b-w{
 .mani .w.on{color:var(--ink)}
 .mani .lbl{margin-bottom:28px}
 
-/* visita: card que abre em tela cheia */
-.tourwrap{padding:0 0 0}
-.tour{position:relative;height:100svh;overflow:hidden;background:var(--dark);color:#fff;clip-path:inset(0 0 0 0 round 0)}
-.ch-img{position:absolute;inset:0;opacity:0}
-.ch-img.on{opacity:1}
-.ch-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.12)}
-.tour::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,17,20,.55),rgba(15,17,20,0) 55%);pointer-events:none}
-.ch-t{position:absolute;z-index:2;left:var(--m);top:50%;transform:translateY(-50%);width:min(500px,84vw);height:340px}
-.ch{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);opacity:0;border-radius:var(--r);padding:32px}
-.ch .lbl{color:rgba(255,255,255,.75)}.ch .lbl::before{background:var(--acc-d)}
-.ch h2{font-size:clamp(36px,3.6vw,60px);margin:14px 0 14px}
-.ch p{color:rgba(255,255,255,.86)}
-.ch-nav{position:absolute;z-index:2;left:50%;bottom:28px;transform:translateX(-50%);display:flex;gap:6px;padding:6px;border-radius:999px}
-.ch-nav span{font-size:13.5px;padding:8px 14px;border-radius:999px;color:rgba(255,255,255,.75);transition:all .45s var(--ease);white-space:nowrap}
-.ch-nav span.on{background:#fff;color:var(--ink)}
-.ch-prog{position:absolute;z-index:2;left:0;right:0;top:0;height:3px;background:rgba(255,255,255,.12)}
-.ch-prog i{display:block;height:100%;width:0;background:var(--acc-d)}
+/* visita: quatro momentos lado a lado */
+.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.four figure{margin:0}
+.four .im{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;background:var(--card)}
+.four img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.four figure:hover img{transform:scale(1.04)}
+.four figcaption{padding:20px 4px 0}
+.four h3{font-size:clamp(24px,1.9vw,30px);letter-spacing:-.02em;line-height:1.08;margin:12px 0 8px}
+.four p{color:var(--fg2);font-size:16px}
 
 /* seções */
 .sec{padding:clamp(120px,18vh,200px) var(--m) 0}
@@ -273,14 +265,7 @@ dialog .x{position:absolute;z-index:2;top:14px;right:14px;min-height:42px;paddin
   .hero .sub{font-size:16px;margin:16px 0 22px}
   .hero .acts{flex-direction:column}
   .ui{padding:16px}.ui-stops,.ui-t{display:none}.ui-room{font-size:24px;margin:12px 0}
-  .tour{height:auto;clip-path:none!important;background:transparent;color:var(--fg);padding:96px var(--m) 0}
-  .tour::after,.tour .ch-img,.ch-nav,.ch-prog{display:none}
-  .ch-t{position:static;transform:none;width:auto;height:auto;display:grid;gap:14px}
-  .ch{position:relative;top:auto;transform:none;opacity:1;padding:0;border-radius:var(--r);overflow:hidden;min-height:480px;display:flex;flex-direction:column;justify-content:flex-end}
-  .ch figure{position:absolute;inset:0;margin:0}
-  .ch figure img{width:100%;height:100%;object-fit:cover}
-  .ch .body{position:relative;margin:12px;border-radius:18px;padding:20px}
-  .ch h2{font-size:clamp(30px,8vw,40px)}
+  .four{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 12px}
   .head{grid-template-columns:1fr;gap:16px;margin-bottom:32px}
   .bento{grid-template-columns:1fr;grid-auto-rows:auto}
   .t-a,.t-b,.t-c,.t-d,.t-e{grid-column:auto;grid-row:auto}
@@ -304,7 +289,7 @@ dialog .x{position:absolute;z-index:2;top:14px;right:14px;min-height:42px;paddin
   .cta{grid-template-columns:1fr;margin:96px 10px 0;padding:18px;min-height:0;border-radius:24px}
   .cta>div:first-of-type{padding:180px 8px 8px}
 }
-@media (min-width:901px){.ch figure{display:none}.ch .body{display:contents}}
+@media (max-width:560px){.four{grid-template-columns:1fr}.four .im{aspect-ratio:4/3}}
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}.mani .w{color:var(--ink)}body{transition:none}}
 </style>
 <script data-goatcounter="https://kraupp.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -344,10 +329,10 @@ dialog .x{position:absolute;z-index:2;top:14px;right:14px;min-height:42px;paddin
     </div>
     <aside class="ui glass-d rv" aria-label="Interface do passeio, sincronizada com o filme">
       <div class="ui-h"><span>Casa Vista · passeio</span><b id="forTag">gravado ao vivo</b></div>
-      <p class="ui-room" id="uiRoom">Deck e piscina</p>
-      <div class="ui-mode"><span id="m3" class="on">3ª pessoa</span><span id="m1">1ª pessoa</span></div>
+      <p class="ui-room" id="uiRoom">Chegada pela rua</p>
+      <div class="ui-mode"><span id="m3">3ª pessoa</span><span id="m1" class="on">1ª pessoa</span></div>
       <ul class="ui-stops" id="uiStops">
-        <li class="on">Deck</li><li>Estar</li><li>Cozinha</li><li>Escada</li><li>Superior</li><li>Fachada</li>
+        <li class="on">Rua</li><li>Deck</li><li>Estar</li><li>Cozinha</li><li>Escada</li><li>Superior</li><li>Fachada</li>
       </ul>
       <div class="ui-bar"><i id="uiBar"></i></div>
       <div class="ui-t mono"><span id="uiTime">00:00</span><span>3 pavimentos · 7 paradas</span></div>
@@ -360,34 +345,22 @@ dialog .x{position:absolute;z-index:2;top:14px;right:14px;min-height:42px;paddin
   <p id="mani">Quem compra um apartamento de R$ 7 milhões na planta decide por uma sensação: como é estar lá dentro. A planta mostra medidas. O render mostra o ângulo que alguém escolheu. O projeto interativo deixa o cliente escolher para onde olhar.</p>
 </section>
 
-<div class="tourwrap" data-theme="light">
-<section class="tour" id="visita" aria-label="A visita, capítulo por capítulo">
-  <div class="ch-prog"><i id="chProg"></i></div>
-  <div class="ch-img on"><img src="assets/experiencia/ext-rua.webp" width="1920" height="1080" alt="" loading="lazy"></div>
-  <div class="ch-img"><img src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="" loading="lazy"></div>
-  <div class="ch-img"><img src="assets/experiencia/vista-1p.webp" width="1920" height="1080" alt="" loading="lazy"></div>
-  <div class="ch-img"><img src="assets/experiencia/int-quarto.webp" width="1920" height="1080" alt="" loading="lazy"></div>
-  <div class="ch-t">
-    <article class="ch glass-d" style="opacity:1">
-      <figure><img src="assets/experiencia/ext-rua.webp" width="1920" height="1080" alt="Acesso da Casa Vista pela rua" loading="lazy"></figure>
-      <div class="body glass-d"><span class="lbl">Chegada</span><h2>Chegue pela rua.</h2><p>A visita começa onde o comprador vai estacionar: calçada, portão, escada e a primeira vista da fachada.</p></div>
-    </article>
-    <article class="ch glass-d">
-      <figure><img src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="Personagem caminhando no estar e jantar" loading="lazy"></figure>
-      <div class="body glass-d"><span class="lbl">Terceira pessoa</span><h2>Meça o pé-direito com o corpo.</h2><p>O personagem é a régua. Ao lado dele, o pé-direito duplo e os vãos deixam de ser número e viram escala.</p></div>
-    </article>
-    <article class="ch glass-d">
-      <figure><img src="assets/experiencia/vista-1p.webp" width="1920" height="1080" alt="O estar em primeira pessoa" loading="lazy"></figure>
-      <div class="body glass-d"><span class="lbl">Primeira pessoa</span><h2>Olhe com os próprios olhos.</h2><p>Um toque troca a câmera. O cliente para no meio do estar, vira para a varanda e fica quanto quiser.</p></div>
-    </article>
-    <article class="ch glass-d">
-      <figure><img src="assets/experiencia/int-quarto.webp" width="1920" height="1080" alt="Quarto no pavimento superior" loading="lazy"></figure>
-      <div class="body glass-d"><span class="lbl">Pavimento superior</span><h2>Suba e confira a vista.</h2><p>Escadas e níveis andáveis. Ele entra no quarto e vê a paisagem antes de existir parede.</p></div>
-    </article>
+<section class="sec" id="visita" data-theme="alt" aria-labelledby="vis-h">
+  <div class="head">
+    <div><span class="lbl rv">A visita</span><h2 class="rv" id="vis-h">Da calçada ao quarto.</h2></div>
+    <p class="rv">Quatro momentos do mesmo passeio, na ordem em que o comprador vive a casa.</p>
   </div>
-  <div class="ch-nav glass-d" aria-hidden="true"><span class="on">Chegada</span><span>3ª pessoa</span><span>1ª pessoa</span><span>Superior</span></div>
+  <div class="four">
+    <figure class="rv"><div class="im"><img src="assets/experiencia/ext-rua.webp" width="1920" height="1080" alt="Acesso da Casa Vista pela rua" loading="lazy" style="object-position:40% 50%"></div>
+      <figcaption><span class="lbl">Chegada</span><h3>Chegue pela rua.</h3><p>Calçada, portão, escada e a primeira vista da fachada.</p></figcaption></figure>
+    <figure class="rv"><div class="im"><img src="assets/experiencia/vista-3p.webp" width="1920" height="1080" alt="Personagem no estar e jantar, em terceira pessoa" loading="lazy" style="object-position:30% 50%"></div>
+      <figcaption><span class="lbl">Terceira pessoa</span><h3>O corpo vira régua.</h3><p>Ao lado do personagem, pé-direito e vãos viram escala.</p></figcaption></figure>
+    <figure class="rv"><div class="im"><img src="assets/experiencia/int-cozinha.webp" width="1920" height="1080" alt="Cozinha e estar em primeira pessoa, com a vista ao fundo" loading="lazy" style="object-position:45% 50%"></div>
+      <figcaption><span class="lbl">Primeira pessoa</span><h3>Olhe com os próprios olhos.</h3><p>Um toque troca a câmera. O cliente vira para a vista e fica quanto quiser.</p></figcaption></figure>
+    <figure class="rv"><div class="im"><img src="assets/experiencia/int-quarto.webp" width="1920" height="1080" alt="Quarto no pavimento superior com a paisagem" loading="lazy" style="object-position:12% 50%"></div>
+      <figcaption><span class="lbl">Pavimento superior</span><h3>Suba e confira a vista.</h3><p>Escadas andáveis até o quarto, com a paisagem real.</p></figcaption></figure>
+  </div>
 </section>
-</div>
 
 <section class="sec" id="recursos" data-theme="light" aria-labelledby="rec-h">
   <div class="head">
@@ -463,7 +436,7 @@ dialog .x{position:absolute;z-index:2;top:14px;right:14px;min-height:42px;paddin
       <tr><td><span class="cat">Sala imersiva e loja conceito</span><span class="who"><i class="red" style="width:70px" aria-label="nome omitido"></i> SC e MG</span></td><td data-h="Faixa"><span class="val">R$ 1,5 a 1,9 mi</span></td><td data-h="Prazo">meses</td><td data-h="No celular" class="no">não</td><td data-h="O melhor" class="best">impacto no stand</td></tr>
       <tr><td><span class="cat">Estúdios de Unreal com streaming</span><span class="who"><i class="red" style="width:84px" aria-label="nome omitido"></i> EUA</span></td><td data-h="Faixa"><span class="val">R$ 165 a 660 mil</span></td><td data-h="Prazo">6 a 14 semanas</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">escala de multinacional</td></tr>
       <tr><td><span class="cat">Estúdios internacionais de real-time</span><span class="who"><i class="red" style="width:64px" aria-label="nome omitido"></i> Europa e EUA</span></td><td data-h="Faixa"><span class="val">R$ 27 a 104 mil</span></td><td data-h="Prazo">2 a 6 semanas</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">plataforma de vendas</td></tr>
-      <tr><td><span class="cat">Plataformas brasileiras de tour 3D</span><span class="who"><i class="red" style="width:58px" aria-label="nome omitido"></i> SP e GO</span></td><td data-h="Faixa"><span class="val">R$ 15 a 50 mil</span></td><td data-h="Prazo">3 semanas a 5 meses</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">espelho de vendas</td></tr>
+      <tr><td><span class="cat">Plataformas brasileiras de tour 3D</span><span class="who"><i class="red" style="width:58px" aria-label="nome omitido"></i> SP e GO</span></td><td data-h="Faixa"><span class="val">R$ 30 a 50 mil</span></td><td data-h="Prazo">3 semanas a 5 meses</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">espelho de vendas</td></tr>
       <tr class="us"><td><span class="cat">Projeto interativo Kraupp</span><span class="who">São Paulo</span></td><td data-h="Faixa"><span class="val">uma fração</span></td><td data-h="Prazo">15 dias</td><td data-h="No celular" class="ok">sim</td><td data-h="O melhor" class="best">luz real, 1ª e 3ª pessoa, link por cliente</td></tr>
     </tbody>
   </table>
@@ -591,11 +564,11 @@ addEventListener('DOMContentLoaded', () => {
 
   // painel do passeio sincronizado com o filme
   const film = $('#film');
-  const tl = [[0, 'Deck e piscina', 3], [4, 'Estar e jantar', 3], [10, 'Cozinha', 1], [14, 'Escada', 3], [16, 'Pavimento superior', 1], [20, 'Fachada', 3]];
+  const tl = [[0, 'Chegada pela rua', 1], [3.2, 'Deck e piscina', 1], [6.7, 'Estar e jantar', 1], [9.7, 'Cozinha', 1], [13.2, 'Escada', 1], [16.2, 'Pavimento superior', 1], [19.2, 'Fachada', 1]];
   const stops = $$('#uiStops li'); let cur = 0;
   film.addEventListener('timeupdate', () => {
     const t = film.currentTime; let i = 0; tl.forEach((p, k) => { if (t >= p[0]) i = k; });
-    $('#uiBar').style.width = (100 * t / (film.duration || 24)) + '%'; $('#uiTime').textContent = '00:' + String(Math.floor(t)).padStart(2, '0');
+    $('#uiBar').style.width = (100 * t / (film.duration || 23)) + '%'; $('#uiTime').textContent = '00:' + String(Math.floor(t)).padStart(2, '0');
     if (i !== cur) { cur = i; $('#uiRoom').textContent = tl[i][1]; stops.forEach((s, k) => s.classList.toggle('on', k === i)); $('#m3').classList.toggle('on', tl[i][2] === 3); $('#m1').classList.toggle('on', tl[i][2] === 1); }
   });
   if (still) { film.removeAttribute('autoplay'); film.pause(); }
@@ -642,27 +615,9 @@ addEventListener('DOMContentLoaded', () => {
 
   const mm = gsap.matchMedia();
   mm.add('(min-width: 901px)', () => {
-    // a visita abre de cartão para tela cheia e vira capítulos
-    gsap.fromTo('.tour', { clipPath: 'inset(9% 7% 9% 7% round 32px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'none', scrollTrigger: { trigger: '.tour', start: 'top 85%', end: 'top top', scrub: true } });
-    const imgs = $$('.ch-img'), chs = $$('.ch'), nav = $$('.ch-nav span'), N = chs.length;
-    gsap.set(chs, { opacity: 0, y: 40 }); gsap.set(chs[0], { opacity: 1, y: 0 });
-    let on = 0;
-    const go = (i) => {
-      if (i === on) return;
-      gsap.to(imgs[on], { opacity: 0, duration: .9, ease: 'power2.out' }); gsap.to(imgs[i], { opacity: 1, duration: .9, ease: 'power2.out' });
-      gsap.to(chs[on], { opacity: 0, y: i > on ? -40 : 40, duration: .6, ease: 'power3.out' });
-      gsap.fromTo(chs[i], { opacity: 0, y: i > on ? 40 : -40 }, { opacity: 1, y: 0, duration: .8, ease: 'expo.out', delay: .1 });
-      nav.forEach((s, k) => s.classList.toggle('on', k === i)); on = i;
-    };
-    imgs.forEach((im) => gsap.to(im.querySelector('img'), { scale: 1, ease: 'none', scrollTrigger: { trigger: '.tour', start: 'top top', end: () => '+=' + innerHeight * N, scrub: true } }));
-    ScrollTrigger.create({ trigger: '.tour', start: 'top top', end: () => '+=' + innerHeight * N, pin: true, scrub: true,
-      onToggle: (s) => { if (s.isActive) document.body.dataset.theme = 'dark'; },
-      onUpdate: (s) => { document.body.dataset.theme = 'dark'; $('#chProg').style.width = s.progress * 100 + '%'; go(Math.min(N - 1, Math.floor(s.progress * N))); } });
-
     const track = $('#track');
     gsap.to(track, { x: () => -(track.scrollWidth - innerWidth), ease: 'none', scrollTrigger: { trigger: '.hz', start: 'top top', end: () => '+=' + (track.scrollWidth - innerWidth), pin: true, scrub: true, invalidateOnRefresh: true } });
     gsap.to('#rail', { width: '100%', ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 85%', end: 'bottom 60%', scrub: true } });
-    return () => gsap.set(chs, { clearProps: 'all' });
   });
 
   $$('.nums b').forEach((b) => { const end = +b.textContent, o = { v: 0 }; gsap.to(o, { v: end, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: b, start: 'top 88%', once: true }, onUpdate: () => { b.textContent = Math.round(o.v); } }); });
